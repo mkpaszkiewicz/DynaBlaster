@@ -4,5 +4,4 @@ import paszkiewicz.marcin.view.View;
 
 public class GameView implements View
 {
-
 }

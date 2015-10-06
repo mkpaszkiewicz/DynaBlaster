@@ -1,5 +1,7 @@
 package paszkiewicz.marcin.core;
 
+import org.newdawn.slick.SlickException;
+
 import paszkiewicz.marcin.core.impl.GameCore;
 
 public class Main
@@ -8,6 +10,14 @@ public class Main
     {
         Core core = new GameCore();
         
-        core.run();
+        try
+        {
+            core.init();
+            core.run();
+        }
+        catch (SlickException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
