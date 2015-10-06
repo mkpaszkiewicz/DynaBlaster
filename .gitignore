@@ -1,7 +1,12 @@
+# Compiled code
 *.class
+target/*
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# Temporary files
+*~
+
+# Eclipse settings
+.settings/*
 
 # Package Files #
 *.jar
