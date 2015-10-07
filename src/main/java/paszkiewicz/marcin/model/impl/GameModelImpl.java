@@ -7,6 +7,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import paszkiewicz.marcin.component.Menu;
 import paszkiewicz.marcin.component.MenuField;
+import paszkiewicz.marcin.component.MenuFieldName;
 import paszkiewicz.marcin.component.MenuFieldPointer;
 import paszkiewicz.marcin.model.GameModel;
 import paszkiewicz.marcin.model.game.state.GameState;
@@ -20,10 +21,6 @@ public class GameModelImpl extends StateBasedGame implements GameModel
 {
     private static final int INITIAL_STATE_ID = GameState.MAINMENU.ordinal();
     private static final String MUSIC_RESOURCE = "sounds/Pisarz_milosci_midi.ogg";
-    private static final String RESUME = "resume";
-    private static final String SINGLE_GAME = "singleGame";
-    private static final String MULTIPLAYER = "multiplayer";
-    private static final String EXIT = "exit";
     
     private Music music;
     
@@ -59,19 +56,23 @@ public class GameModelImpl extends StateBasedGame implements GameModel
     {
         this.menu = new Menu();
 
-        MenuField resume = new MenuField(RESUME, GraphicPrototypeFactory.createResumeGraphic());
-        MenuField singleGame = new MenuField(SINGLE_GAME, GraphicPrototypeFactory.createSingleGameGraphic());
-        MenuField multiplayer = new MenuField(MULTIPLAYER, GraphicPrototypeFactory.createMultiplayerGraphic());
-        MenuField exit = new MenuField(EXIT, GraphicPrototypeFactory.createExitGraphic());
+        MenuField resume = new MenuField(MenuFieldName.RESUME, GraphicPrototypeFactory.createResumeGraphic());
+        MenuField singleGame = new MenuField(MenuFieldName.SINGLE_GAME, GraphicPrototypeFactory.createSingleGameGraphic());
+        MenuField multiplayer = new MenuField(MenuFieldName.MULTIPLAYER, GraphicPrototypeFactory.createMultiplayerGraphic());
+        MenuField exit = new MenuField(MenuFieldName.EXIT, GraphicPrototypeFactory.createExitGraphic());
         MenuFieldPointer menuFieldPointer = new MenuFieldPointer(singleGame, GraphicPrototypeFactory.createMenuFieldPointerGraphic());
-
+        
+        float space = singleGame.getGraphic().getHeight();
+        
+        menuFieldPointer.setSpace(space);
+        
         menu.addField(resume, 0);
         menu.setFieldVisibility(0, false);
         menu.addField(singleGame, 1);
         menu.addField(multiplayer, 2);
         menu.addField(exit, 3);
         menu.setFieldPointer(menuFieldPointer);
-        menu.setSpace(singleGame.getGraphic().getHeight());
+        menu.setSpace(space);
     }
     
     @Override

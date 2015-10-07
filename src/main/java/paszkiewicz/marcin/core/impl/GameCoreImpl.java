@@ -11,6 +11,7 @@ import paszkiewicz.marcin.controller.impl.MainMenuController;
 import paszkiewicz.marcin.controller.listener.KeyListenerImpl;
 import paszkiewicz.marcin.core.GameCore;
 import paszkiewicz.marcin.model.GameModel;
+import paszkiewicz.marcin.model.Model;
 import paszkiewicz.marcin.model.impl.GameModelImpl;
 
 public class GameCoreImpl implements GameCore
@@ -25,7 +26,7 @@ public class GameCoreImpl implements GameCore
     {
         this.gameModel = new GameModelImpl("Dyna Blaster");
         
-        Controller defaultController = new MainMenuController();
+        Controller defaultController = new MainMenuController(this);
         this.controllerStrategy = new ControllerStrategyImpl(defaultController);
     }
 
@@ -47,7 +48,17 @@ public class GameCoreImpl implements GameCore
         runKeyListener();
         application.start();
     }
-
+    
+    public void exit()
+    {
+        application.exit();
+    }
+    
+    public Model getModel()
+    {
+        return gameModel;
+    }
+    
     private void runKeyListener()
     {
         new Thread()
