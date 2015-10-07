@@ -12,8 +12,6 @@ import paszkiewicz.marcin.controller.listener.KeyListenerImpl;
 import paszkiewicz.marcin.core.GameCore;
 import paszkiewicz.marcin.model.GameModel;
 import paszkiewicz.marcin.model.impl.GameModelImpl;
-import paszkiewicz.marcin.view.View;
-import paszkiewicz.marcin.view.impl.GameView;
 
 public class GameCoreImpl implements GameCore
 {
@@ -21,14 +19,11 @@ public class GameCoreImpl implements GameCore
 
     private GameModel gameModel;
 
-    private View view;
-    
     private ControllerStrategy controllerStrategy;
     
     public GameCoreImpl()
     {
         this.gameModel = new GameModelImpl("Dyna Blaster");
-        this.view = new GameView();
         
         Controller defaultController = new MainMenuController();
         this.controllerStrategy = new ControllerStrategyImpl(defaultController);
@@ -48,6 +43,7 @@ public class GameCoreImpl implements GameCore
 
     public void run() throws SlickException
     {   
+        gameModel.playMusic();
         runKeyListener();
         application.start();
     }
