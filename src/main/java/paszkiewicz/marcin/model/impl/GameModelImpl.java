@@ -6,6 +6,9 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import paszkiewicz.marcin.model.GameModel;
 import paszkiewicz.marcin.model.game.state.GameState;
+import paszkiewicz.marcin.model.game.state.MainMenu;
+import paszkiewicz.marcin.model.game.state.Multiplayer;
+import paszkiewicz.marcin.model.game.state.SingleGame;
 
 public class GameModelImpl extends StateBasedGame implements GameModel
 {
@@ -19,6 +22,10 @@ public class GameModelImpl extends StateBasedGame implements GameModel
     @Override
     public void initStatesList(GameContainer container) throws SlickException
     {
+        addState(new MainMenu());
+        addState(new SingleGame());
+        addState(new Multiplayer());
+        
         enterState(INITIAL_STATE_ID);
     }
 }

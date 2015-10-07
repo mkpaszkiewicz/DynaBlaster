@@ -4,13 +4,13 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
-import paszkiewicz.marcin.core.Core;
+import paszkiewicz.marcin.core.GameCore;
 import paszkiewicz.marcin.model.GameModel;
 import paszkiewicz.marcin.model.impl.GameModelImpl;
 import paszkiewicz.marcin.view.View;
 import paszkiewicz.marcin.view.impl.GameView;
 
-public class GameCore implements Core
+public class GameCoreImpl implements GameCore
 {
     private AppGameContainer application;
 
@@ -18,7 +18,7 @@ public class GameCore implements Core
 
     private View view;
 
-    public GameCore()
+    public GameCoreImpl()
     {
         this.gameModel = new GameModelImpl("Dyna Blaster");
         this.view = new GameView();

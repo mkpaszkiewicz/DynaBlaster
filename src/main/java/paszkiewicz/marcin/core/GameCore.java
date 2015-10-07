@@ -2,7 +2,7 @@ package paszkiewicz.marcin.core;
 
 import org.newdawn.slick.SlickException;
 
-public interface Core
+public interface GameCore
 {
     void init() throws SlickException;
     
