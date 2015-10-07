@@ -4,7 +4,7 @@ import paszkiewicz.marcin.controller.ControllerStrategy;
 
 public class KeyListenerImpl extends KeyListenerAdapter
 {   
-    ControllerStrategy controllerStrategy;
+    private ControllerStrategy controllerStrategy;
     
     public KeyListenerImpl(ControllerStrategy controllerStrategy)
     {

@@ -6,7 +6,12 @@ import paszkiewicz.marcin.controller.ControllerStrategy;
 public class ControllerStrategyImpl implements ControllerStrategy
 {
     private Controller controller;
-
+    
+    public ControllerStrategyImpl(Controller controller)
+    {
+        set(controller);
+    }
+    
     public void set(Controller controller)
     {
         this.controller = controller;

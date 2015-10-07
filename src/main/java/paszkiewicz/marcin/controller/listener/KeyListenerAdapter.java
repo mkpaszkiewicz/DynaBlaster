@@ -5,7 +5,6 @@ import org.newdawn.slick.KeyListener;
 
 public class KeyListenerAdapter implements KeyListener
 {
-
     public void setInput(Input input)
     {
     }
