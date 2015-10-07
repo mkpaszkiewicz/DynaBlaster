@@ -40,9 +40,9 @@ public class GraphicElement implements Graphic
         graphics.drawImage(image, x, y);
     }
 
-    public Graphic clone()
+    public GraphicElement clone()
     {
-        return null;
+        return new GraphicElement(image, x, y);
     }
 
     public int getWidth()

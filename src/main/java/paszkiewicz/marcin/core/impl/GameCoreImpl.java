@@ -33,7 +33,7 @@ public class GameCoreImpl implements GameCore
     {
         int screenWidth = Display.getDisplayMode().getWidth();
         int screenHeight = Display.getDisplayMode().getHeight();
-        Display.setResizable(true);
+
         // application = new AppGameContainer(model, screenWidth, screenHeight, true);
         application = new AppGameContainer(this.gameModel, 600, 600, false);
         application.setShowFPS(false);

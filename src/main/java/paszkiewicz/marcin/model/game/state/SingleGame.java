@@ -6,8 +6,17 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import paszkiewicz.marcin.model.Model;
+
 public class SingleGame extends BasicGameState
 {
+    private Model model;
+
+    public SingleGame(Model model)
+    {
+        this.model = model;
+    }
+
     public void init(GameContainer container, StateBasedGame game) throws SlickException
     {
         // TODO Auto-generated method stub
