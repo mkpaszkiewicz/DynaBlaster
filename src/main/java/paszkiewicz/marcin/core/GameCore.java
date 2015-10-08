@@ -3,6 +3,7 @@ package paszkiewicz.marcin.core;
 import org.newdawn.slick.SlickException;
 
 import paszkiewicz.marcin.model.Model;
+import paszkiewicz.marcin.model.game.state.GameState;
 
 public interface GameCore
 {
@@ -13,4 +14,6 @@ public interface GameCore
     void exit();
     
     Model getModel();
+    
+    void enterState(GameState gameState);
 }

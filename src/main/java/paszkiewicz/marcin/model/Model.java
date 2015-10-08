@@ -1,6 +1,7 @@
 package paszkiewicz.marcin.model;
 
 import paszkiewicz.marcin.component.Menu;
+import paszkiewicz.marcin.model.game.state.GameState;
 
 public interface Model
 {
@@ -12,5 +13,7 @@ public interface Model
     
     void initMenu();
     
-    Menu getMenu();    
+    Menu getMenu();
+    
+    void enterState(GameState gameState);
 }

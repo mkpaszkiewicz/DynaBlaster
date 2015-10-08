@@ -6,6 +6,7 @@ import paszkiewicz.marcin.component.Menu;
 import paszkiewicz.marcin.component.MenuFieldName;
 import paszkiewicz.marcin.controller.Controller;
 import paszkiewicz.marcin.core.GameCore;
+import paszkiewicz.marcin.model.game.state.GameState;
 
 public class MainMenuController implements Controller
 {
@@ -35,7 +36,25 @@ public class MainMenuController implements Controller
         else if (keyCode == Input.KEY_ENTER)
         {   
             switch (menu.getChoice())
-            {
+            {   
+                case MenuFieldName.RESUME:
+                {
+                    break;
+                }
+                case MenuFieldName.SINGLE_GAME:
+                {   
+                    menu.setFieldVisibility(0, true);
+                    
+                    gameCore.enterState(GameState.SINGLEGAME);
+                    break;
+                }
+                case MenuFieldName.MULTIPLAYER:
+                {   
+                    menu.setFieldVisibility(0, true);
+                    
+                    gameCore.enterState(GameState.MULTIPLAYER);
+                    break;
+                }
                 case MenuFieldName.EXIT:
                 {
                     gameCore.exit();

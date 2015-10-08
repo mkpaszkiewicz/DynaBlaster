@@ -75,6 +75,11 @@ public class GameModelImpl extends StateBasedGame implements GameModel
         menu.setSpace(space);
     }
     
+    public void enterState(GameState gameState)
+    {
+        enterState(gameState.ordinal());
+    }
+    
     @Override
     public void initStatesList(GameContainer container) throws SlickException
     {
