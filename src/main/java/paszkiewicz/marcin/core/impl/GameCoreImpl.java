@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
 import paszkiewicz.marcin.controller.Controller;
@@ -14,6 +13,7 @@ import paszkiewicz.marcin.controller.impl.MainMenuController;
 import paszkiewicz.marcin.controller.impl.MultiplayerController;
 import paszkiewicz.marcin.controller.impl.SingleGameController;
 import paszkiewicz.marcin.controller.listener.KeyListenerImpl;
+import paszkiewicz.marcin.core.ApplicationContainer;
 import paszkiewicz.marcin.core.GameCore;
 import paszkiewicz.marcin.model.GameModel;
 import paszkiewicz.marcin.model.Model;
@@ -22,7 +22,7 @@ import paszkiewicz.marcin.model.impl.GameModelImpl;
 
 public class GameCoreImpl implements GameCore
 {
-    private AppGameContainer application;
+    private ApplicationContainer application;
 
     private GameModel gameModel;
 
@@ -45,7 +45,7 @@ public class GameCoreImpl implements GameCore
         int screenHeight = Display.getDisplayMode().getHeight();
 
         // application = new AppGameContainer(model, screenWidth, screenHeight, true);
-        application = new AppGameContainer(this.gameModel, 600, 600, false);
+        application = new ApplicationContainer(this.gameModel, 600, 600, false);
         application.setShowFPS(false);
         // application.setMouseGrabbed(true);
         application.setAlwaysRender(true);
@@ -54,7 +54,7 @@ public class GameCoreImpl implements GameCore
     public void run() throws SlickException
     {
         gameModel.playMusic();
-        runKeyListener();
+        application.addKeyListener(new KeyListenerImpl(controllerStrategy));
         application.start();
     }
 
@@ -71,28 +71,7 @@ public class GameCoreImpl implements GameCore
     public void enterState(GameState gameState)
     {
         controllerStrategy.set(stateToControllerMap.get(gameState));
-        gameModel.enterState(gameState);
-    }
-
-    private void runKeyListener()
-    {
-        new Thread() {
-            public void run()
-            {
-                while (true)
-                {
-                    try
-                    {
-                        application.getInput().addKeyListener(new KeyListenerImpl(controllerStrategy));
-                        break;
-                    }
-                    catch (NullPointerException e)
-                    {
-                        // application has not started yet, try again
-                    }
-                }
-            }
-        }.start();
+        gameModel.enterState(gameState.ordinal());
     }
 
     private void initStateToControllerMap()

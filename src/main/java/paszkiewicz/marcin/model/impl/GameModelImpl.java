@@ -30,6 +30,7 @@ public class GameModelImpl extends StateBasedGame implements GameModel
     {
         super(name);
         this.music = SlickFactory.createMusic(MUSIC_RESOURCE);
+        this.menu = new Menu();
     }
     
     public void update(int delta)
@@ -54,8 +55,6 @@ public class GameModelImpl extends StateBasedGame implements GameModel
     
     public void initMenu()
     {
-        this.menu = new Menu();
-
         MenuField resume = new MenuField(MenuFieldName.RESUME, GraphicPrototypeFactory.createResumeGraphic());
         MenuField singleGame = new MenuField(MenuFieldName.SINGLE_GAME, GraphicPrototypeFactory.createSingleGameGraphic());
         MenuField multiplayer = new MenuField(MenuFieldName.MULTIPLAYER, GraphicPrototypeFactory.createMultiplayerGraphic());
@@ -73,11 +72,6 @@ public class GameModelImpl extends StateBasedGame implements GameModel
         menu.addField(exit, 3);
         menu.setFieldPointer(menuFieldPointer);
         menu.setSpace(space);
-    }
-    
-    public void enterState(GameState gameState)
-    {
-        enterState(gameState.ordinal());
     }
     
     @Override

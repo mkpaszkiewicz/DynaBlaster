@@ -18,9 +18,9 @@ public class MainMenuController implements Controller
     }
 
     public void serveKeyPressed(int keyCode)
-    {   
+    {
         Menu menu = gameCore.getModel().getMenu();
-        
+
         if (keyCode == Input.KEY_ESCAPE)
         {
             gameCore.exit();
@@ -34,24 +34,25 @@ public class MainMenuController implements Controller
             menu.nextChoice();
         }
         else if (keyCode == Input.KEY_ENTER)
-        {   
+        {
             switch (menu.getChoice())
-            {   
+            {
                 case MenuFieldName.RESUME:
                 {
+                    gameCore.enterState(GameState.SINGLEGAME);
                     break;
                 }
                 case MenuFieldName.SINGLE_GAME:
-                {   
+                {
                     menu.setFieldVisibility(0, true);
-                    
+                    // create new game
                     gameCore.enterState(GameState.SINGLEGAME);
                     break;
                 }
                 case MenuFieldName.MULTIPLAYER:
-                {   
+                {
                     menu.setFieldVisibility(0, true);
-                    
+                    // create new multiplayer game
                     gameCore.enterState(GameState.MULTIPLAYER);
                     break;
                 }
