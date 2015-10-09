@@ -2,25 +2,24 @@ package paszkiewicz.marcin.controller.impl;
 
 import org.newdawn.slick.Input;
 
-import paszkiewicz.marcin.component.Menu;
-import paszkiewicz.marcin.component.MenuFieldName;
-import paszkiewicz.marcin.controller.Controller;
 import paszkiewicz.marcin.core.GameCore;
+import paszkiewicz.marcin.menu.Menu;
+import paszkiewicz.marcin.menu.MenuFieldName;
+import paszkiewicz.marcin.model.Model;
+import paszkiewicz.marcin.model.game.impl.SingleGame;
 import paszkiewicz.marcin.model.game.state.GameState;
 
-public class MainMenuController implements Controller
+public class MainMenuController extends AbstractController
 {
-    private GameCore gameCore;
-
-    public MainMenuController(GameCore gameCore)
+    public MainMenuController(GameCore gameCore, Model model)
     {
-        this.gameCore = gameCore;
+        super(gameCore, model);
     }
 
     public void serveKeyPressed(int keyCode)
     {
-        Menu menu = gameCore.getModel().getMenu();
-
+        Menu menu = model.getMenu();
+        
         if (keyCode == Input.KEY_ESCAPE)
         {
             gameCore.exit();
@@ -44,15 +43,15 @@ public class MainMenuController implements Controller
                 }
                 case MenuFieldName.SINGLE_GAME:
                 {
-                    menu.setFieldVisibility(0, true);
-                    // create new game
+                    model.enableMenuField(MenuFieldName.RESUME);
+                    model.startNewGame(new SingleGame());
                     gameCore.enterState(GameState.SINGLEGAME);
                     break;
                 }
                 case MenuFieldName.MULTIPLAYER:
                 {
-                    menu.setFieldVisibility(0, true);
-                    // create new multiplayer game
+                    model.enableMenuField(MenuFieldName.RESUME);
+                    //model.startNewGame(new MultiplayerGame());
                     gameCore.enterState(GameState.MULTIPLAYER);
                     break;
                 }

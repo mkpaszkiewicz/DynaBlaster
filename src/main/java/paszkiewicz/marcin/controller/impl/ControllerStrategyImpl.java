@@ -5,7 +5,7 @@ import paszkiewicz.marcin.controller.ControllerStrategy;
 
 public class ControllerStrategyImpl implements ControllerStrategy
 {
-    private Controller controller;
+    protected Controller controller;
     
     public ControllerStrategyImpl(Controller controller)
     {

@@ -1,24 +1,27 @@
 package paszkiewicz.marcin.controller.impl;
 
-import paszkiewicz.marcin.controller.Controller;
+import org.newdawn.slick.Input;
+
 import paszkiewicz.marcin.core.GameCore;
+import paszkiewicz.marcin.model.Model;
+import paszkiewicz.marcin.model.game.state.GameState;
 
-public class MultiplayerController implements Controller
+public class MultiplayerController extends AbstractController
 {
-    private GameCore gameCore;
-
-    public MultiplayerController(GameCore gameCore)
+    public MultiplayerController(GameCore gameCore, Model model)
     {
-        this.gameCore = gameCore;
+        super(gameCore, model);
     }
     
     public void serveKeyPressed(int keyCode)
     {
-        System.out.println(keyCode);
+        if (keyCode == Input.KEY_ESCAPE)
+        {
+            gameCore.enterState(GameState.MAINMENU);
+        }
     }
 
     public void serveKeyReleased(int keyCode)
     {
-        System.out.println(keyCode);
     }
 }
