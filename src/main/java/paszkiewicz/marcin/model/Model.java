@@ -1,18 +1,18 @@
 package paszkiewicz.marcin.model;
 
-import paszkiewicz.marcin.component.Menu;
+import paszkiewicz.marcin.model.game.Game;
 
-public interface Model
+public interface Model extends MenuModel
 {
     void update(int delta);
+
+    void enterState(int gameStateId);
+
+    void startNewGame(Game game);
+    
+    Game getGame();
     
     void playMusic();
-    
+
     void pauseMusic();
-    
-    void initMenu();
-    
-    Menu getMenu();
-    
-    void enterState(int gameStateId);
 }

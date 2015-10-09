@@ -16,19 +16,18 @@ import paszkiewicz.marcin.controller.listener.KeyListenerImpl;
 import paszkiewicz.marcin.core.ApplicationContainer;
 import paszkiewicz.marcin.core.GameCore;
 import paszkiewicz.marcin.model.GameModel;
-import paszkiewicz.marcin.model.Model;
 import paszkiewicz.marcin.model.game.state.GameState;
 import paszkiewicz.marcin.model.impl.GameModelImpl;
 
 public class GameCoreImpl implements GameCore
 {
-    private ApplicationContainer application;
+    protected ApplicationContainer application;
 
-    private GameModel gameModel;
+    protected GameModel gameModel;
 
-    private ControllerStrategy controllerStrategy;
+    protected ControllerStrategy controllerStrategy;
 
-    private Map<GameState, Controller> stateToControllerMap;
+    protected Map<GameState, Controller> stateToControllerMap;
 
     public GameCoreImpl()
     {
@@ -39,18 +38,20 @@ public class GameCoreImpl implements GameCore
         this.controllerStrategy = new ControllerStrategyImpl(defaultController);
     }
 
+    @Override
     public void init() throws SlickException
     {
         int screenWidth = Display.getDisplayMode().getWidth();
         int screenHeight = Display.getDisplayMode().getHeight();
 
-        // application = new AppGameContainer(model, screenWidth, screenHeight, true);
-        application = new ApplicationContainer(this.gameModel, 600, 600, false);
+        application = new ApplicationContainer(this.gameModel, screenWidth, screenHeight, true);
+        //application = new ApplicationContainer(this.gameModel, 600, 600, false);
         application.setShowFPS(false);
         // application.setMouseGrabbed(true);
         application.setAlwaysRender(true);
     }
 
+    @Override
     public void run() throws SlickException
     {
         gameModel.playMusic();
@@ -58,16 +59,13 @@ public class GameCoreImpl implements GameCore
         application.start();
     }
 
+    @Override
     public void exit()
     {
         application.exit();
     }
 
-    public Model getModel()
-    {
-        return gameModel;
-    }
-
+    @Override
     public void enterState(GameState gameState)
     {
         controllerStrategy.set(stateToControllerMap.get(gameState));
@@ -77,8 +75,8 @@ public class GameCoreImpl implements GameCore
     private void initStateToControllerMap()
     {
         this.stateToControllerMap = new HashMap<GameState, Controller>();
-        this.stateToControllerMap.put(GameState.MAINMENU, new MainMenuController(this));
-        this.stateToControllerMap.put(GameState.SINGLEGAME, new SingleGameController(this));
-        this.stateToControllerMap.put(GameState.MULTIPLAYER, new MultiplayerController(this));
+        this.stateToControllerMap.put(GameState.MAINMENU, new MainMenuController(this, gameModel));
+        this.stateToControllerMap.put(GameState.SINGLEGAME, new SingleGameController(this, gameModel));
+        this.stateToControllerMap.put(GameState.MULTIPLAYER, new MultiplayerController(this, gameModel));
     }
 }
