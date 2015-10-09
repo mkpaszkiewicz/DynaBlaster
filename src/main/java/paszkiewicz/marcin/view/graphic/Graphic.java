@@ -1,10 +1,6 @@
 package paszkiewicz.marcin.view.graphic;
 
-import org.newdawn.slick.Graphics;
-
-public interface Graphic
+public interface Graphic extends Drawable
 {
-    public void draw(Graphics graphics);
-    
-    public Graphic clone();
+    Graphic clone();
 }

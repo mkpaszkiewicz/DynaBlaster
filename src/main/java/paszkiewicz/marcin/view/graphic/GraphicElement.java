@@ -34,12 +34,20 @@ public class GraphicElement implements Graphic
         setX(x);
         setY(y);
     }
-
+    
+    public GraphicElement(float x, float y)
+    {
+        setX(x);
+        setY(y);
+    }
+    
+    @Override
     public void draw(Graphics graphics)
     {
         graphics.drawImage(image, x, y);
     }
-
+    
+    @Override
     public GraphicElement clone()
     {
         return new GraphicElement(image, x, y);

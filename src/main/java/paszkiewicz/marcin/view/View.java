@@ -2,9 +2,12 @@ package paszkiewicz.marcin.view;
 
 import org.newdawn.slick.Graphics;
 
-import paszkiewicz.marcin.model.Model;
+import paszkiewicz.marcin.menu.Menu;
+import paszkiewicz.marcin.model.game.Game;
 
 public interface View
 {
-    void render(Model model, Graphics graphics);
+    void drawGame(Game game, Graphics graphics);
+    
+    void drawMainMenu(Menu menu, Graphics graphics);
 }
