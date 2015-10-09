@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="17" height="13" tilewidth="16" tileheight="16" nextobjectid="1">
  <tileset firstgid="1" name="Board" tilewidth="16" tileheight="16" spacing="1">
-  <image source="basic_board.png" width="782" height="51"/>
+  <image source="../graphics/basic_board.png" width="782" height="51"/>
   <terraintypes>
    <terrain name="New Terrain" tile="-1"/>
   </terraintypes>
@@ -477,7 +477,7 @@
   </tile>
  </tileset>
  <tileset firstgid="139" name="Monsters" tilewidth="16" tileheight="20">
-  <image source="monsters_animation.png" width="224" height="80"/>
+  <image source="../graphics/monsters_animation.png" width="224" height="80"/>
  </tileset>
  <layer name="background" width="17" height="13">
   <data encoding="base64" compression="gzip">
