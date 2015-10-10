@@ -1,4 +1,4 @@
-package paszkiewicz.marcin.model.game.map;
+package paszkiewicz.marcin.model.map;
 
 import java.util.HashMap;
 

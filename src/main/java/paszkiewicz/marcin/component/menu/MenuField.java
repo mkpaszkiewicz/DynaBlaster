@@ -1,4 +1,4 @@
-package paszkiewicz.marcin.menu;
+package paszkiewicz.marcin.component.menu;
 
 import paszkiewicz.marcin.view.graphic.Graphic;
 

@@ -1,7 +1,7 @@
-package paszkiewicz.marcin.view.graphic.bonus;
+package paszkiewicz.marcin.component.bonus;
 
+import paszkiewicz.marcin.component.sprite.Player;
 import paszkiewicz.marcin.view.graphic.impl.AnimatedGraphicElement;
-import paszkiewicz.marcin.view.graphic.sprite.Player;
 
 public class AbstractBonus extends AnimatedGraphicElement implements Bonus
 {      

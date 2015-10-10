@@ -1,6 +1,6 @@
 package paszkiewicz.marcin.model;
 
-import paszkiewicz.marcin.menu.Menu;
+import paszkiewicz.marcin.component.menu.Menu;
 
 public interface MenuModel
 {

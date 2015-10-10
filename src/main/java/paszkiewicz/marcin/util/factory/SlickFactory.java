@@ -6,7 +6,7 @@ import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-import paszkiewicz.marcin.model.game.map.Map;
+import paszkiewicz.marcin.model.map.Map;
 
 public class SlickFactory
 {

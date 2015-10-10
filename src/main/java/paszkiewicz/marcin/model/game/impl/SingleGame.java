@@ -2,14 +2,14 @@ package paszkiewicz.marcin.model.game.impl;
 
 import org.newdawn.slick.Graphics;
 
+import paszkiewicz.marcin.component.sprite.Player;
+import paszkiewicz.marcin.component.sprite.PlayerToken;
 import paszkiewicz.marcin.model.game.Game;
-import paszkiewicz.marcin.model.game.map.LayerName;
-import paszkiewicz.marcin.model.game.map.Map;
+import paszkiewicz.marcin.model.map.LayerName;
+import paszkiewicz.marcin.model.map.Map;
 import paszkiewicz.marcin.util.factory.MapFactory;
 import paszkiewicz.marcin.util.factory.SpriteFactory;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic;
-import paszkiewicz.marcin.view.graphic.sprite.Player;
-import paszkiewicz.marcin.view.graphic.sprite.PlayerToken;
 
 public class SingleGame implements Game
 {

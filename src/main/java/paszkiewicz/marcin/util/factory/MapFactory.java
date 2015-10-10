@@ -1,6 +1,6 @@
 package paszkiewicz.marcin.util.factory;
 
-import paszkiewicz.marcin.model.game.map.Map;
+import paszkiewicz.marcin.model.map.Map;
 
 public class MapFactory
 {   

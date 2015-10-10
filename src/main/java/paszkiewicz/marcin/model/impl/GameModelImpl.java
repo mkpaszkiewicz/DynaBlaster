@@ -5,10 +5,10 @@ import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import paszkiewicz.marcin.menu.Menu;
-import paszkiewicz.marcin.menu.MenuField;
-import paszkiewicz.marcin.menu.MenuFieldName;
-import paszkiewicz.marcin.menu.MenuFieldPointer;
+import paszkiewicz.marcin.component.menu.Menu;
+import paszkiewicz.marcin.component.menu.MenuField;
+import paszkiewicz.marcin.component.menu.MenuFieldName;
+import paszkiewicz.marcin.component.menu.MenuFieldPointer;
 import paszkiewicz.marcin.model.GameModel;
 import paszkiewicz.marcin.model.game.Game;
 import paszkiewicz.marcin.model.game.state.GameState;
@@ -112,7 +112,13 @@ public class GameModelImpl extends StateBasedGame implements GameModel
     {
         music.pause();
     }
-
+    
+    @Override
+    public boolean isMusicPaused()
+    {
+        return !music.playing();
+    }
+    
     @Override
     public void initStatesList(GameContainer container) throws SlickException
     {

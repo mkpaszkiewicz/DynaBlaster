@@ -3,9 +3,9 @@ package paszkiewicz.marcin.view.impl;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Graphics;
 
-import paszkiewicz.marcin.menu.Menu;
+import paszkiewicz.marcin.component.menu.Menu;
 import paszkiewicz.marcin.model.game.Game;
-import paszkiewicz.marcin.model.game.map.Map;
+import paszkiewicz.marcin.model.map.Map;
 import paszkiewicz.marcin.view.View;
 import paszkiewicz.marcin.view.graphic.Graphic;
 

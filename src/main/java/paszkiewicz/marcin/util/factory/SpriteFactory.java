@@ -1,8 +1,8 @@
 package paszkiewicz.marcin.util.factory;
 
+import paszkiewicz.marcin.component.sprite.Player;
+import paszkiewicz.marcin.component.sprite.Sprite;
 import paszkiewicz.marcin.util.SpriteSheets;
-import paszkiewicz.marcin.view.graphic.sprite.Player;
-import paszkiewicz.marcin.view.graphic.sprite.Sprite;
 
 public class SpriteFactory
 {
@@ -15,6 +15,7 @@ public class SpriteFactory
         player.setMovingUpAnimation(SlickFactory.createAnimation(SpriteSheets.playerSpriteSheet, 9, 0, 11, 0, 110));
         player.setMovingDownAnimation(SlickFactory.createAnimation(SpriteSheets.playerSpriteSheet, 0, 0, 2, 0, 110));
         player.setDyingAnimation(SlickFactory.createAnimation(SpriteSheets.playerSpriteSheet, 0, 1, 6, 1, 150));
+        player.setImage(player.getMovingDownAnimation().getImage(0));
     }
 
     private static Sprite balloon = new Sprite();

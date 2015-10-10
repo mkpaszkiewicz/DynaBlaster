@@ -1,16 +1,16 @@
 package paszkiewicz.marcin.util.factory;
 
+import paszkiewicz.marcin.component.bonus.AbstractBonus;
+import paszkiewicz.marcin.component.bonus.impl.Death;
+import paszkiewicz.marcin.component.bonus.impl.ExtraBomb;
+import paszkiewicz.marcin.component.bonus.impl.ExtraLife;
+import paszkiewicz.marcin.component.bonus.impl.ExtraRange;
+import paszkiewicz.marcin.component.bonus.impl.ExtraSpeed;
+import paszkiewicz.marcin.component.bonus.impl.RemoveBomb;
+import paszkiewicz.marcin.component.bonus.impl.RemoveRange;
+import paszkiewicz.marcin.component.bonus.impl.RemoveSpeed;
 import paszkiewicz.marcin.util.SpriteSheets;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic.AnimationState;
-import paszkiewicz.marcin.view.graphic.bonus.AbstractBonus;
-import paszkiewicz.marcin.view.graphic.bonus.impl.Death;
-import paszkiewicz.marcin.view.graphic.bonus.impl.ExtraBomb;
-import paszkiewicz.marcin.view.graphic.bonus.impl.ExtraLife;
-import paszkiewicz.marcin.view.graphic.bonus.impl.ExtraRange;
-import paszkiewicz.marcin.view.graphic.bonus.impl.ExtraSpeed;
-import paszkiewicz.marcin.view.graphic.bonus.impl.RemoveBomb;
-import paszkiewicz.marcin.view.graphic.bonus.impl.RemoveRange;
-import paszkiewicz.marcin.view.graphic.bonus.impl.RemoveSpeed;
 
 public class BonusPrototypeFactory
 {

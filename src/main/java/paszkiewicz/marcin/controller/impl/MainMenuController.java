@@ -2,9 +2,9 @@ package paszkiewicz.marcin.controller.impl;
 
 import org.newdawn.slick.Input;
 
+import paszkiewicz.marcin.component.menu.Menu;
+import paszkiewicz.marcin.component.menu.MenuFieldName;
 import paszkiewicz.marcin.core.GameCore;
-import paszkiewicz.marcin.menu.Menu;
-import paszkiewicz.marcin.menu.MenuFieldName;
 import paszkiewicz.marcin.model.Model;
 import paszkiewicz.marcin.model.game.impl.SingleGame;
 import paszkiewicz.marcin.model.game.state.GameState;
@@ -23,6 +23,17 @@ public class MainMenuController extends AbstractController
         if (keyCode == Input.KEY_ESCAPE)
         {
             gameCore.exit();
+        }
+        else if (keyCode == Input.KEY_P)
+        {
+            if (model.isMusicPaused())
+            {
+                model.playMusic();
+            }
+            else
+            {
+                model.pauseMusic();
+            }
         }
         else if (keyCode == Input.KEY_UP)
         {

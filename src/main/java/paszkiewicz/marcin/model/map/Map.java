@@ -1,4 +1,4 @@
-package paszkiewicz.marcin.model.game.map;
+package paszkiewicz.marcin.model.map;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
+import paszkiewicz.marcin.component.bonus.AbstractBonus;
 import paszkiewicz.marcin.util.Command;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic;
-import paszkiewicz.marcin.view.graphic.bonus.AbstractBonus;
 
 public class Map extends TiledMap
 {

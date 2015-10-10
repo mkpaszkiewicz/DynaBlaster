@@ -1,34 +1,35 @@
-package paszkiewicz.marcin.view.graphic.sprite;
+package paszkiewicz.marcin.component.sprite;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Graphics;
 
 public class Player extends Sprite
-{   
+{
     protected static final float STARTING_SPEED = 0.047f;
-    
+
     protected static final float EXTRA_SPEED = 0.008f;
-    
+
     protected static final int STARTING_LIFES = 2;
-    
+
     protected static final int STARTING_BOMBS = 1;
-    
+
     protected static final int STARTING_BOMB_RANGE = 1;
-    
+
     protected int allAvailableBombs = STARTING_BOMBS;
-    
+
     protected int availableBombs = STARTING_BOMBS;
-    
+
     protected int bombRange = STARTING_BOMB_RANGE;
-    
-    protected int lifes = STARTING_LIFES;    
-    
+
+    protected int lifes = STARTING_LIFES;
+
     protected Animation movingLeftAnimation, movingRightAnimation, movingUpAnimation, movingDownAnimation;
-    
+
     public Player()
     {
         setSpeed(STARTING_SPEED);
     }
-    
+
     @Override
     public Player clone()
     {
@@ -44,38 +45,107 @@ public class Player extends Sprite
 
         return sprite;
     }
-    
+
     public PlayerToken createToken()
     {
         PlayerToken token = new PlayerToken();
         token.setRememberedAllAvailableBombs(allAvailableBombs);
         token.setRememberedBombRange(bombRange);
         token.setRememberedSpeed(speed);
-        
+
         return token;
     }
-    
+
     public void restoreState(PlayerToken token)
     {
         setAllAvailableBombs(token.getRememberedAllAvailableBombs());
         setBombRange(token.getRememberedBombRange());
         setSpeed(token.getRememberedSpeed());
     }
-    
+
     @Deprecated
     @Override
     public Animation getAnimation()
     {
         return super.getAnimation();
     }
-    
+
     @Deprecated
     @Override
     public void setAnimation(Animation animation)
     {
-        this.animation = animation;
+        super.setAnimation(animation);
     }
-    
+
+    @Override
+    public void updateAnimation(int delta)
+    {
+        if (isDying())
+        {
+            dyingAnimation.update(delta);
+            animatingTime += delta;
+            if (animatingTime >= DYING_TIME)
+            {
+                setSpriteState(SpriteState.KILLED);
+            }
+        }
+        else if (isMovingLeft())
+        {
+            movingLeftAnimation.update(delta);
+        }
+        else if (isMovingRight())
+        {
+            movingRightAnimation.update(delta);
+        }
+        else if (isMovingUp())
+        {
+            movingUpAnimation.update(delta);
+        }
+        else if (isMovingDown())
+        {
+            movingDownAnimation.update(delta);
+        }
+    }
+
+    @Override
+    public void draw(Graphics graphics)
+    {
+        if (isDying() && animatingTime >= DYING_TIME)
+        {
+            setSpriteState(SpriteState.KILLED);
+        }
+
+        if (isKilled())
+        {
+            return;
+        }
+
+        if (isDying())
+        {
+            dyingAnimation.draw(x, y);
+        }
+        else if (isMovingLeft())
+        {
+            movingLeftAnimation.draw(x, y);
+        }
+        else if (isMovingRight())
+        {
+            movingRightAnimation.draw(x, y);
+        }
+        else if (isMovingUp())
+        {
+            movingUpAnimation.draw(x, y);
+        }
+        else if (isMovingDown())
+        {
+            movingDownAnimation.draw(x, y);
+        }
+        else
+        {
+            graphics.drawImage(image, x, y);
+        }
+    }
+
     public Animation getMovingLeftAnimation()
     {
         return movingLeftAnimation;

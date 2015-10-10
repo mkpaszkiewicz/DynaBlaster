@@ -1,4 +1,4 @@
-package paszkiewicz.marcin.view.graphic.sprite;
+package paszkiewicz.marcin.component.sprite;
 
 public class PlayerToken
 {

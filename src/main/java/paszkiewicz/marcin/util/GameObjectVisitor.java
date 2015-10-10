@@ -1,6 +1,6 @@
 package paszkiewicz.marcin.util;
 
-import paszkiewicz.marcin.view.graphic.bonus.Bonus;
+import paszkiewicz.marcin.component.bonus.Bonus;
 
 public interface GameObjectVisitor
 {
