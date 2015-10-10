@@ -1,31 +1,19 @@
 package paszkiewicz.marcin.view.graphic.sprite;
 
-import org.newdawn.slick.Image;
+import org.newdawn.slick.Animation;
 
 import paszkiewicz.marcin.view.graphic.DynamicGraphic;
 import paszkiewicz.marcin.view.graphic.impl.AnimatedGraphicElement;
 
 public class Sprite extends AnimatedGraphicElement implements DynamicGraphic
 {
-    protected int xTile = 0;
-
-    protected int yTile = 0;
-
-    protected float x = 0;
-
-    protected float y = 0;
-
     protected float speed = 1;
-
-    protected Image image;
 
     protected static final int DYING_TIME = 1000;
 
-    protected long animationLength = 0;
-
-    protected long animatingTime = 0;
-
     protected boolean passingThroughWalls = false;
+
+    protected Animation dyingAnimation;
 
     protected SpriteState state = SpriteState.NORMAL;
 
@@ -37,6 +25,40 @@ public class Sprite extends AnimatedGraphicElement implements DynamicGraphic
     public Sprite()
     {
         super();
+    }
+
+    @Override
+    public Sprite clone()
+    {
+        Sprite sprite = new Sprite();
+        sprite.setAnimationLength(animationLength);
+        sprite.setAnimation(animation.copy());
+        sprite.setDyingAnimation(dyingAnimation.copy());
+        sprite.setImage(image);
+        sprite.setSpeed(speed);
+        sprite.setPassingThroughWalls(passingThroughWalls);
+
+        return sprite;
+    }
+
+    public boolean isPassingThroughWalls()
+    {
+        return passingThroughWalls;
+    }
+
+    public void setPassingThroughWalls(boolean passingThroughWalls)
+    {
+        this.passingThroughWalls = passingThroughWalls;
+    }
+
+    public void setDyingAnimation(Animation dyingAnimation)
+    {
+        this.dyingAnimation = dyingAnimation;
+    }
+
+    public Animation getDyingAnimation()
+    {
+        return dyingAnimation;
     }
 
     public void setSpriteState(SpriteState state)

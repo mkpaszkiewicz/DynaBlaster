@@ -1,7 +1,5 @@
 package paszkiewicz.marcin.util.factory;
 
-import org.newdawn.slick.Animation;
-
 import paszkiewicz.marcin.util.SpriteSheets;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic.AnimationState;
 import paszkiewicz.marcin.view.graphic.bonus.AbstractBonus;
@@ -20,7 +18,7 @@ public class BonusPrototypeFactory
 
     static
     {
-        extraBomb.setAnimation(new Animation(SpriteSheets.basicSpriteSheet, 3, 2, 4, 2, true, 400, false));
+        extraBomb.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 3, 2, 4, 2, 400));
         extraBomb.setImage(extraBomb.getAnimation().getImage(0));
         extraBomb.setState(AnimationState.ANIMATING);
     }
@@ -29,7 +27,7 @@ public class BonusPrototypeFactory
 
     static
     {
-        extraRange.setAnimation(new Animation(SpriteSheets.basicSpriteSheet, 5, 2, 6, 2, true, 400, false));
+        extraRange.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 5, 2, 6, 2, 400));
         extraRange.setImage(extraRange.getAnimation().getImage(0));
         extraRange.setState(AnimationState.ANIMATING);
     }
@@ -38,7 +36,7 @@ public class BonusPrototypeFactory
 
     static
     {
-        extraLife.setAnimation(new Animation(SpriteSheets.basicSpriteSheet, 7, 2, 8, 2, true, 400, false));
+        extraLife.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 7, 2, 8, 2, 400));
         extraLife.setImage(extraLife.getAnimation().getImage(0));
         extraLife.setState(AnimationState.ANIMATING);
     }
@@ -47,7 +45,7 @@ public class BonusPrototypeFactory
 
     static
     {
-        extraSpeed.setAnimation(new Animation(SpriteSheets.basicSpriteSheet, 9, 2, 10, 2, true, 400, false));
+        extraSpeed.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 9, 2, 10, 2, 400));
         extraSpeed.setImage(extraSpeed.getAnimation().getImage(0));
         extraSpeed.setState(AnimationState.ANIMATING);
     }
@@ -56,7 +54,7 @@ public class BonusPrototypeFactory
 
     static
     {
-        death.setAnimation(new Animation(SpriteSheets.basicSpriteSheet, 11, 2, 12, 2, true, 400, false));
+        death.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 11, 2, 12, 2, 400));
         death.setImage(death.getAnimation().getImage(0));
         death.setState(AnimationState.ANIMATING);
     }
@@ -65,7 +63,7 @@ public class BonusPrototypeFactory
 
     static
     {
-        removeBomb.setAnimation(new Animation(SpriteSheets.basicSpriteSheet, 13, 2, 14, 2, true, 400, false));
+        removeBomb.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 13, 2, 14, 2, 400));
         removeBomb.setImage(removeBomb.getAnimation().getImage(0));
         removeBomb.setState(AnimationState.ANIMATING);
     }
@@ -74,7 +72,7 @@ public class BonusPrototypeFactory
 
     static
     {
-        removeRange.setAnimation(new Animation(SpriteSheets.basicSpriteSheet, 15, 2, 16, 2, true, 400, false));
+        removeRange.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 15, 2, 16, 2, 400));
         removeRange.setImage(removeRange.getAnimation().getImage(0));
         removeRange.setState(AnimationState.ANIMATING);
     }
@@ -83,7 +81,7 @@ public class BonusPrototypeFactory
 
     static
     {
-        removeSpeed.setAnimation(new Animation(SpriteSheets.basicSpriteSheet, 17, 2, 18, 2, true, 400, false));
+        removeSpeed.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 17, 2, 18, 2, 400));
         removeSpeed.setImage(removeSpeed.getAnimation().getImage(0));
         removeSpeed.setState(AnimationState.ANIMATING);
     }

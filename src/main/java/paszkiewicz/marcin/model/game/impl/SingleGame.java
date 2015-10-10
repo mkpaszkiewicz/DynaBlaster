@@ -6,7 +6,10 @@ import paszkiewicz.marcin.model.game.Game;
 import paszkiewicz.marcin.model.game.map.LayerName;
 import paszkiewicz.marcin.model.game.map.Map;
 import paszkiewicz.marcin.util.factory.MapFactory;
+import paszkiewicz.marcin.util.factory.SpriteFactory;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic;
+import paszkiewicz.marcin.view.graphic.sprite.Player;
+import paszkiewicz.marcin.view.graphic.sprite.PlayerToken;
 
 public class SingleGame implements Game
 {
@@ -16,8 +19,10 @@ public class SingleGame implements Game
 
     protected Map map;
 
-    // protected Player player;
-
+    protected Player player;
+    
+    protected PlayerToken playerToken;
+    
     protected boolean gameOver;
 
     protected boolean playerWon;
@@ -26,24 +31,23 @@ public class SingleGame implements Game
     {
         this.stageNumber = 1;
         this.map = MapFactory.createMap(stageNumber);
+        this.player = SpriteFactory.createPlayer();
     }
 
     @Override
     public void draw(Graphics graphics)
     {
         map.render((int) map.getX(), (int) map.getY(), map.getLayerIndex(LayerName.BACKGROUND));
-
-        for (AnimatedGraphic wall : map.getWalls())
-        {
-            wall.draw(graphics);
-        }
+        map.getNextStage().draw(graphics);
         for (AnimatedGraphic bonus : map.getBonuses())
         {
             bonus.draw(graphics);
         }
-        map.getNextStage().draw(graphics);
-        // draw(map.getBonuses(), graphics);
-
+        for (AnimatedGraphic wall : map.getWalls())
+        {
+            wall.draw(graphics);
+        }
+        player.draw(graphics);
     }
 
     @Override
@@ -59,10 +63,10 @@ public class SingleGame implements Game
         return map;
     }
 
-    // public Player getPlayer()
-    // {
-    // return player;
-    // }
+    public Player getPlayer()
+    {
+        return player;
+    }
 
     @Override
     public boolean isGameOver()
@@ -79,31 +83,35 @@ public class SingleGame implements Game
     protected void updateAnimations(int delta)
     {
         map.getNextStage().updateAnimation(delta);
-
-        for (AnimatedGraphic wall : map.getWalls())
-        {
-            wall.updateAnimation(delta);
-        }
-
+        
         for (AnimatedGraphic bonus : map.getBonuses())
         {
             bonus.updateAnimation(delta);
         }
+        
+        for (AnimatedGraphic wall : map.getWalls())
+        {
+            wall.updateAnimation(delta);
+        }
+        
+        player.updateAnimation(delta);
     }
 
     protected void updatePositions(int delta)
     {
         updatePosition(map.getNextStage());
-
+        
+        for (AnimatedGraphic bonus : map.getBonuses())
+        {
+            updatePosition(bonus);
+        }
+        
         for (AnimatedGraphic wall : map.getWalls())
         {
             updatePosition(wall);
         }
 
-        for (AnimatedGraphic bonus : map.getBonuses())
-        {
-            updatePosition(bonus);
-        }
+        updatePosition(player);        
     }
 
     protected void updatePosition(AnimatedGraphic animatedGraphic)

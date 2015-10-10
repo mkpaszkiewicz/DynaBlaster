@@ -1,7 +1,5 @@
 package paszkiewicz.marcin.util.factory;
 
-import org.newdawn.slick.Animation;
-
 import paszkiewicz.marcin.util.SpriteSheets;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic;
 import paszkiewicz.marcin.view.graphic.impl.AnimatedGraphicElement;
@@ -10,7 +8,7 @@ public class AnimatatedGraphicPrototypeFactory
 {
     private static AnimatedGraphic nextStage = new AnimatedGraphicElement() {
         {
-            setAnimation(new Animation(SpriteSheets.basicSpriteSheet, 1, 2, 2, 2, true, 200, false));
+            setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 1, 2, 2, 2, 200));
             setImage(animation.getImage(1));
             setState(AnimationState.ENDED);
         }
@@ -18,7 +16,7 @@ public class AnimatatedGraphicPrototypeFactory
 
     private static AnimatedGraphic wall = new AnimatedGraphicElement() {
         {
-            setAnimation(new Animation(SpriteSheets.basicSpriteSheet, 19, 2, 20, 2, true, 200, false));
+            setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 19, 2, 20, 2, 200));
             setImage(animation.getImage(0));
             setState(AnimationState.ENDED);
         }
@@ -26,7 +24,7 @@ public class AnimatatedGraphicPrototypeFactory
 
     private static AnimatedGraphic fallingWall = new AnimatedGraphicElement() {
         {
-            setAnimation(new Animation(SpriteSheets.basicSpriteSheet, 29, 0, 35, 0, true, 150, false));
+            setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 29, 0, 35, 0, 150));
             setImage(animation.getImage(0));
             setState(AnimationState.ANIMATING);
             setAnimationLength(1000);
@@ -42,7 +40,7 @@ public class AnimatatedGraphicPrototypeFactory
     {
         return wall.clone();
     }
-    
+
     public static AnimatedGraphic createFallingWall()
     {
         return fallingWall.clone();

@@ -15,11 +15,9 @@ import paszkiewicz.marcin.model.game.state.GameState;
 import paszkiewicz.marcin.model.game.state.MainMenu;
 import paszkiewicz.marcin.model.game.state.Multiplayer;
 import paszkiewicz.marcin.model.game.state.SingleGame;
-import paszkiewicz.marcin.util.GameObjectVisitor;
 import paszkiewicz.marcin.util.factory.GraphicPrototypeFactory;
 import paszkiewicz.marcin.util.factory.SlickFactory;
 import paszkiewicz.marcin.view.View;
-import paszkiewicz.marcin.view.graphic.bonus.Bonus;
 import paszkiewicz.marcin.view.impl.ViewImpl;
 
 public class GameModelImpl extends StateBasedGame implements GameModel
@@ -32,7 +30,7 @@ public class GameModelImpl extends StateBasedGame implements GameModel
     protected Game game;
 
     protected Menu menu;
-    
+
     public GameModelImpl(String name)
     {
         super(name);

@@ -17,7 +17,7 @@ public class AnimatedGraphicElement extends GraphicElement implements AnimatedGr
 
     protected Animation animation;
 
-    protected AnimationState state = AnimationState.ENDED;
+    protected AnimationState state = AnimationState.ANIMATING;
 
     public AnimatedGraphicElement()
     {
