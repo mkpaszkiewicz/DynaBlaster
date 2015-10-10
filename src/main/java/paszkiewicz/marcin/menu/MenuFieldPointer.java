@@ -1,20 +1,21 @@
 package paszkiewicz.marcin.menu;
 
-import paszkiewicz.marcin.view.graphic.GraphicElement;
+import paszkiewicz.marcin.view.graphic.Graphic;
+import paszkiewicz.marcin.view.graphic.impl.GraphicElement;
 
 public class MenuFieldPointer
 {
     private MenuField menuField;
-    private GraphicElement graphic;
+    private Graphic graphic;
     private float space = 0;
 
-    public MenuFieldPointer(MenuField menuField, GraphicElement graphic)
+    public MenuFieldPointer(MenuField menuField, Graphic graphic)
     {
         this.graphic = graphic;
         this.menuField = menuField;
     }
 
-    public MenuFieldPointer(MenuField menuField, GraphicElement graphic, float space)
+    public MenuFieldPointer(MenuField menuField, Graphic graphic, float space)
     {
         this.graphic = graphic;
         this.menuField = menuField;
@@ -31,7 +32,7 @@ public class MenuFieldPointer
         this.menuField = menuField;
     }
     
-    public GraphicElement getGraphic()
+    public Graphic getGraphic()
     {
         return graphic;
     }
@@ -53,7 +54,7 @@ public class MenuFieldPointer
     
     public void updatePosition()
     {
-        GraphicElement menuFieldGraphic = menuField.getGraphic();
+        Graphic menuFieldGraphic = menuField.getGraphic();
 
         float x = menuFieldGraphic.getX() - space - graphic.getWidth();
         float y = menuFieldGraphic.getY();

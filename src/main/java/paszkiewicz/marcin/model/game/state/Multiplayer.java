@@ -18,7 +18,7 @@ public class Multiplayer extends AbstractGameState
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics graphics) throws SlickException
     {
-        view.drawGame(model.getGame(), graphics);
+        view.draw(model.getGame(), graphics);
     }
     
     @Override

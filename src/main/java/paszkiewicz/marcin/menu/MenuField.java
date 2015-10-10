@@ -1,14 +1,14 @@
 package paszkiewicz.marcin.menu;
 
-import paszkiewicz.marcin.view.graphic.GraphicElement;
+import paszkiewicz.marcin.view.graphic.Graphic;
 
 public class MenuField
 {
     private String name;
-    private GraphicElement graphic;
+    private Graphic graphic;
     private boolean visibility = true;
 
-    public MenuField(String name, GraphicElement graphic)
+    public MenuField(String name, Graphic graphic)
     {
         this.name = name;
         this.graphic = graphic;
@@ -24,12 +24,12 @@ public class MenuField
         this.name = name;
     }
     
-    public GraphicElement getGraphic()
+    public Graphic getGraphic()
     {
         return graphic;
     }
     
-    public void setGraphic(GraphicElement graphic)
+    public void setGraphic(Graphic graphic)
     {
         this.graphic = graphic;
     }

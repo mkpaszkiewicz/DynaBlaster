@@ -1,47 +1,48 @@
 package paszkiewicz.marcin.util;
 
-import paszkiewicz.marcin.view.graphic.GraphicElement;
+import paszkiewicz.marcin.view.graphic.Graphic;
+import paszkiewicz.marcin.view.graphic.impl.GraphicElement;
 
 public class GraphicPrototypeFactory
 {
-    private static GraphicElement mainMenuBackground = new GraphicElement("graphics/background.png");
+    private static Graphic mainMenuBackground = new GraphicElement("graphics/background.png");
 
-    private static GraphicElement resumeGraphic = new GraphicElement("graphics/menu/resume.png");
+    private static Graphic resumeGraphic = new GraphicElement("graphics/menu/resume.png");
 
-    private static GraphicElement singleGameGraphic = new GraphicElement("graphics/menu/single_game.png");
+    private static Graphic singleGameGraphic = new GraphicElement("graphics/menu/single_game.png");
 
-    private static GraphicElement multiplayerGraphic = new GraphicElement("graphics/menu/multiplayer.png");
+    private static Graphic multiplayerGraphic = new GraphicElement("graphics/menu/multiplayer.png");
 
-    private static GraphicElement exitGraphic = new GraphicElement("graphics/menu/exit.png");
+    private static Graphic exitGraphic = new GraphicElement("graphics/menu/exit.png");
 
-    private static GraphicElement menuFieldPointerGraphic = new GraphicElement("graphics/menu/field_pointer.png");
+    private static Graphic menuFieldPointerGraphic = new GraphicElement("graphics/menu/field_pointer.png");
 
-    public static GraphicElement createBackground()
+    public static Graphic createBackground()
     {
         return mainMenuBackground.clone();
     }
     
-    public static GraphicElement createResumeGraphic()
+    public static Graphic createResumeGraphic()
     {
         return resumeGraphic.clone();
     }
     
-    public static GraphicElement createSingleGameGraphic()
+    public static Graphic createSingleGameGraphic()
     {
         return singleGameGraphic.clone();
     }
 
-    public static GraphicElement createMultiplayerGraphic()
+    public static Graphic createMultiplayerGraphic()
     {
         return multiplayerGraphic.clone();
     }
     
-    public static GraphicElement createExitGraphic()
+    public static Graphic createExitGraphic()
     {
         return exitGraphic.clone();
     }
     
-    public static GraphicElement createMenuFieldPointerGraphic()
+    public static Graphic createMenuFieldPointerGraphic()
     {
         return menuFieldPointerGraphic.clone();
     }

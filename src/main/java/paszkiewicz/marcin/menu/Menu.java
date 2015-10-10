@@ -3,23 +3,43 @@ package paszkiewicz.marcin.menu;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu
+import org.newdawn.slick.Graphics;
+
+import paszkiewicz.marcin.view.graphic.Drawable;
+import paszkiewicz.marcin.view.graphic.Graphic;
+
+public class Menu implements Drawable
 {
-    private float x = 0;
-    private float y = 0;
-    private float space = 0;
-    private List<MenuField> menuFields;
-    private MenuFieldPointer menuFieldPointer;
-    private int visibleFields = 0;
+    protected Graphic background;
+    protected float x = 0;
+    protected float y = 0;
+    protected float space = 0;
+    protected List<MenuField> menuFields;
+    protected MenuFieldPointer menuFieldPointer;
+    protected int visibleFields = 0;
 
     public Menu()
     {
         menuFields = new ArrayList<MenuField>();
     }
     
-    public List<MenuField> getFields()
+    @Override
+    public void draw(Graphics graphics)
     {
-        return menuFields;
+        background.draw(graphics);
+        
+        for (MenuField field : menuFields)
+        {
+            if (field.isVisible())
+            {
+                field.getGraphic().draw(graphics);
+            }
+        }
+
+        if (getFieldPointer() != null)
+        {
+            getFieldPointer().getGraphic().draw(graphics);
+        }
     }
     
     public void addField(MenuField menuField, int index)
@@ -38,6 +58,16 @@ public class Menu
                 menuField.setVisibility(visibility);
             }
         }
+    }
+    
+    public Graphic getBackground()
+    {
+        return background;
+    }
+
+    public void setBackground(Graphic background)
+    {
+        this.background = background;
     }
     
     public float getX()

@@ -14,29 +14,28 @@ public class MainMenu extends AbstractGameState
     {
         super(model, view);
     }
-    
+
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException
     {
         model.initMenu();
     }
-    
+
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics graphics) throws SlickException
     {
-        view.drawMainMenu(model.getMenu(), graphics);
+        view.draw(model.getMenu(), graphics);
     }
-    
+
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
     {
     }
-    
+
     @Override
     public int getID()
     {
         return GameState.MAINMENU.ordinal();
     }
-
 
 }

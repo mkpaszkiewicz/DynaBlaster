@@ -7,7 +7,7 @@ import paszkiewicz.marcin.model.game.Game;
 
 public interface View
 {
-    void drawGame(Game game, Graphics graphics);
+    void draw(Game game, Graphics graphics);
     
-    void drawMainMenu(Menu menu, Graphics graphics);
+    void draw(Menu menu, Graphics graphics);
 }
