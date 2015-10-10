@@ -15,7 +15,7 @@ public class SingleGame implements Game
 {
     protected static int NUMBER_OF_STAGES = 10;
 
-    protected int stageNumber;
+    protected int stageNumber = 1;
 
     protected Map map;
 
@@ -23,15 +23,23 @@ public class SingleGame implements Game
     
     protected PlayerToken playerToken;
     
-    protected boolean gameOver;
+    protected boolean gameOver = false;
 
-    protected boolean playerWon;
+    protected boolean playerWon = false;
 
     public SingleGame()
     {
-        this.stageNumber = 1;
-        this.map = MapFactory.createMap(stageNumber);
         this.player = SpriteFactory.createPlayer();
+        
+        prepareStage();
+    }
+
+    protected void prepareStage()
+    {
+        this.map = MapFactory.createMap(stageNumber);
+        this.playerToken = player.createToken();
+        this.player.setxTile(2);
+        this.player.setyTile(1);
     }
 
     @Override
@@ -120,5 +128,13 @@ public class SingleGame implements Game
         float y = (int) (map.getY() + animatedGraphic.getyTile() * map.getTileHeight());
         animatedGraphic.setX(x);
         animatedGraphic.setY(y);
+    }
+    
+    protected void updatePosition(Player player)
+    {
+        float x = (int) (map.getX() + player.getxTile() * map.getTileWidth() - 3);
+        float y = (int) (map.getY() + player.getyTile() * map.getTileHeight() - 7);
+        player.setX(x);
+        player.setY(y);
     }
 }

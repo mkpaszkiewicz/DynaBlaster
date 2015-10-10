@@ -34,10 +34,10 @@ public class Player extends Sprite
     public Player clone()
     {
         Player sprite = new Player();
-        sprite.setMovingDownAnimation(movingLeftAnimation.copy());
-        sprite.setMovingUpAnimation(movingRightAnimation.copy());
-        sprite.setMovingLeftAnimation(movingUpAnimation.copy());
-        sprite.setMovingRightAnimation(movingDownAnimation.copy());
+        sprite.setMovingLeftAnimation(movingLeftAnimation.copy());
+        sprite.setMovingRightAnimation(movingRightAnimation.copy());
+        sprite.setMovingUpAnimation(movingUpAnimation.copy());
+        sprite.setMovingDownAnimation(movingDownAnimation.copy());
         sprite.setDyingAnimation(dyingAnimation.copy());
         sprite.setImage(image);
         sprite.setSpeed(speed);

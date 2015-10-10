@@ -106,7 +106,13 @@ public class GameModelImpl extends StateBasedGame implements GameModel
     {
         music.loop();
     }
-
+    
+    @Override
+    public void resumeMusic()
+    {
+        music.resume();
+    }
+    
     @Override
     public void pauseMusic()
     {

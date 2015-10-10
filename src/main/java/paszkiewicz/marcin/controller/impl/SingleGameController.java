@@ -25,7 +25,7 @@ public class SingleGameController extends AbstractController
         {
             if (model.isMusicPaused())
             {
-                model.playMusic();
+                model.resumeMusic();
             }
             else
             {

@@ -13,7 +13,9 @@ public interface Model extends MenuModel
     Game getGame();
     
     void playMusic();
-
+    
+    void resumeMusic();
+    
     void pauseMusic();
     
     boolean isMusicPaused();
