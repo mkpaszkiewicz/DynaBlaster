@@ -7,7 +7,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 import paszkiewicz.marcin.util.AnimatatedGraphicPrototypeFactory;
+import paszkiewicz.marcin.util.BonusPrototypeFactory;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic;
+import paszkiewicz.marcin.view.graphic.bonus.AbstractBonus;
 
 public class Map extends TiledMap
 {
@@ -21,7 +23,7 @@ public class Map extends TiledMap
 
     protected List<AnimatedGraphic> fallingWalls;
 
-    protected List<AnimatedGraphic> bonuses;
+    protected List<AbstractBonus> bonuses;
 
     protected List<AnimatedGraphic> walls;
     
@@ -39,7 +41,7 @@ public class Map extends TiledMap
         this.bombs = new LinkedList<AnimatedGraphic>();
         this.explosions = new LinkedList<AnimatedGraphic>();
         this.fallingWalls = new LinkedList<AnimatedGraphic>();
-        this.bonuses = new LinkedList<AnimatedGraphic>();
+        this.bonuses = new LinkedList<AbstractBonus>();
         this.walls = new LinkedList<AnimatedGraphic>();
         
         this.blockedTiles = new boolean[super.getWidth()][super.getHeight()];
@@ -105,7 +107,7 @@ public class Map extends TiledMap
         return fallingWalls;
     }
 
-    public List<AnimatedGraphic> getBonuses()
+    public List<AbstractBonus> getBonuses()
     {
         return bonuses;
     }
@@ -135,7 +137,7 @@ public class Map extends TiledMap
                 addIfNextStage(id, i, j);
 
                 id = getTileId(i, j, getLayerIndex(LayerName.BONUSES));
-                addIfBonus(id, i, j);
+               // addIfBonus(id, i, j);
 
                 id = getTileId(i, j, getLayerIndex(LayerName.WALLS));
                 addIfWall(id, i, j);
@@ -144,6 +146,8 @@ public class Map extends TiledMap
                 addIfMonster(id, i, j);
             }
         }
+        
+        addIfBonus(1, 2, 2);
     }
 
     private void addBackgroundTile(int tileId, int i, int j)
@@ -168,8 +172,11 @@ public class Map extends TiledMap
 
     private void addIfBonus(int tileId, int i, int j)
     {
-        // TODO Auto-generated method stub
-
+        
+        AbstractBonus bonus = BonusPrototypeFactory.createDeath();
+        bonus.setxTile(i);
+        bonus.setyTile(j);
+        bonuses.add(bonus);
     }
 
     private void addIfWall(int tileId, int i, int j)

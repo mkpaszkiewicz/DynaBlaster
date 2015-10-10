@@ -41,6 +41,10 @@ public class SingleGame implements Game
         {
             wall.draw(graphics);
         }
+        for (AnimatedGraphic bonus : map.getBonuses())
+        {
+            bonus.draw(graphics);
+        }
         // render((int) x, (int) y, getLayerIndex(LayerName.WALLS));
         // draw(map.getBonuses(), graphics);
 
@@ -84,8 +88,13 @@ public class SingleGame implements Game
         {
             wall.updateAnimation(delta);
         }
+
+        for (AnimatedGraphic bonus : map.getBonuses())
+        {
+            bonus.updateAnimation(delta);
+        }
     }
-    
+
     protected void updatePositions(int delta)
     {
         updatePosition(map.getNextStage());
@@ -94,8 +103,13 @@ public class SingleGame implements Game
         {
             updatePosition(wall);
         }
+
+        for (AnimatedGraphic bonus : map.getBonuses())
+        {
+            updatePosition(bonus);
+        }
     }
-    
+
     protected void updatePosition(AnimatedGraphic animatedGraphic)
     {
         float x = (int) (map.getX() + animatedGraphic.getxTile() * map.getTileWidth());
@@ -103,7 +117,7 @@ public class SingleGame implements Game
         animatedGraphic.setX(x);
         animatedGraphic.setY(y);
     }
-    
+
     protected void draw(List<AnimatedGameObject> animatedGameObjects, Graphics graphics)
     {
         for (AnimatedGameObject animatedGameObject : animatedGameObjects)

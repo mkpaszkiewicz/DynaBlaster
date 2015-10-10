@@ -1,0 +1,13 @@
+package paszkiewicz.marcin.view.graphic.bonus.impl;
+
+import paszkiewicz.marcin.view.graphic.bonus.AbstractBonus;
+import paszkiewicz.marcin.view.graphic.sprite.Player;
+
+public class RemoveSpeed extends AbstractBonus
+{
+    @Override
+    public void modifyFeature(Player player)
+    {
+        // player.removeSpeed();
+    }
+}
