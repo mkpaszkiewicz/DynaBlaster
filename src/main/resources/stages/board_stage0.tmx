@@ -477,7 +477,7 @@
   </tile>
  </tileset>
  <tileset firstgid="139" name="Monsters" tilewidth="16" tileheight="20">
-  <image source="monsters_animation.png" width="224" height="80"/>
+  <image source="../graphics/monsters_animation.png" width="224" height="80"/>
  </tileset>
  <layer name="background" width="17" height="13">
   <data encoding="base64" compression="gzip">
