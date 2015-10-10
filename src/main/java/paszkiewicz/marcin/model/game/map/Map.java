@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 import paszkiewicz.marcin.util.AnimatatedGraphicPrototypeFactory;
-import paszkiewicz.marcin.util.BonusPrototypeFactory;
+import paszkiewicz.marcin.util.Command;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic;
 import paszkiewicz.marcin.view.graphic.bonus.AbstractBonus;
 
@@ -26,7 +26,7 @@ public class Map extends TiledMap
     protected List<AbstractBonus> bonuses;
 
     protected List<AnimatedGraphic> walls;
-    
+
     // protected List<Sprite> monsters;
 
     protected AnimatedGraphic nextStage;
@@ -43,13 +43,13 @@ public class Map extends TiledMap
         this.fallingWalls = new LinkedList<AnimatedGraphic>();
         this.bonuses = new LinkedList<AbstractBonus>();
         this.walls = new LinkedList<AnimatedGraphic>();
-        
+
         this.blockedTiles = new boolean[super.getWidth()][super.getHeight()];
         this.forbiddenTiles = new boolean[super.getWidth()][super.getHeight()];
 
         parseMap();
     }
-    
+
     public float getX()
     {
         return x;
@@ -81,17 +81,17 @@ public class Map extends TiledMap
     {
         return super.getHeight() * getTileHeight();
     }
-    
+
     public boolean isForbiddenTile(int xTile, int yTile)
     {
         return forbiddenTiles[xTile][yTile];
     }
-    
+
     public boolean isBlockedTile(int xTile, int yTile)
     {
         return blockedTiles[xTile][yTile];
     }
-    
+
     public List<AnimatedGraphic> getBombs()
     {
         return bombs;
@@ -111,17 +111,17 @@ public class Map extends TiledMap
     {
         return bonuses;
     }
-    
+
     public List<AnimatedGraphic> getWalls()
     {
         return walls;
     }
-    
+
     public AnimatedGraphic getNextStage()
     {
         return nextStage;
     }
-    
+
     private void parseMap()
     {
         int id;
@@ -137,7 +137,7 @@ public class Map extends TiledMap
                 addIfNextStage(id, i, j);
 
                 id = getTileId(i, j, getLayerIndex(LayerName.BONUSES));
-               // addIfBonus(id, i, j);
+                addIfBonus(id, i, j);
 
                 id = getTileId(i, j, getLayerIndex(LayerName.WALLS));
                 addIfWall(id, i, j);
@@ -146,8 +146,6 @@ public class Map extends TiledMap
                 addIfMonster(id, i, j);
             }
         }
-        
-        addIfBonus(1, 2, 2);
     }
 
     private void addBackgroundTile(int tileId, int i, int j)
@@ -172,11 +170,15 @@ public class Map extends TiledMap
 
     private void addIfBonus(int tileId, int i, int j)
     {
-        
-        AbstractBonus bonus = BonusPrototypeFactory.createDeath();
-        bonus.setxTile(i);
-        bonus.setyTile(j);
-        bonuses.add(bonus);
+        Command factoryMethod = TileIdToFactoryMethodMapper.map.get(tileId);
+
+        if (factoryMethod != null)
+        {
+            AbstractBonus bonus = (AbstractBonus) factoryMethod.run();
+            bonus.setxTile(i);
+            bonus.setyTile(j);
+            bonuses.add(bonus);
+        }
     }
 
     private void addIfWall(int tileId, int i, int j)
