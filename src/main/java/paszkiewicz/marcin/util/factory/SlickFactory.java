@@ -1,4 +1,4 @@
-package paszkiewicz.marcin.util;
+package paszkiewicz.marcin.util.factory;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;

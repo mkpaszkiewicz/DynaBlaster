@@ -1,4 +1,4 @@
-package paszkiewicz.marcin.util;
+package paszkiewicz.marcin.util.factory;
 
 import paszkiewicz.marcin.model.game.map.Map;
 

@@ -24,7 +24,6 @@ public class AbstractBonus extends AnimatedGraphicElement implements Bonus
     {
         AbstractBonus animatedGraphicsElement = new AbstractBonus(xTile, yTile);
         animatedGraphicsElement.setAnimationLength(animationLength);
-        animatedGraphicsElement.setAnimatingTime(animatingTime);
         animatedGraphicsElement.setAnimation(animation.copy());
         animatedGraphicsElement.setImage(image);
         animatedGraphicsElement.setState(state);

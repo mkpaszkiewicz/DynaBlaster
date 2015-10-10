@@ -17,7 +17,7 @@ public class AnimatedGraphicElement extends GraphicElement implements AnimatedGr
 
     protected Animation animation;
 
-    protected State state = State.ENDED;
+    protected AnimationState state = AnimationState.ENDED;
 
     public AnimatedGraphicElement()
     {
@@ -49,7 +49,6 @@ public class AnimatedGraphicElement extends GraphicElement implements AnimatedGr
     {
         AnimatedGraphicElement animatedGraphicsElement = new AnimatedGraphicElement(xTile, yTile);
         animatedGraphicsElement.setAnimationLength(animationLength);
-        animatedGraphicsElement.setAnimatingTime(animatingTime);
         animatedGraphicsElement.setAnimation(animation.copy());
         animatedGraphicsElement.setImage(image);
         animatedGraphicsElement.setState(state);
@@ -67,7 +66,7 @@ public class AnimatedGraphicElement extends GraphicElement implements AnimatedGr
             animatingTime += delta;
             if (!animationLooped() && animatingTime >= animationLength)
             {
-                setState(State.ENDED);
+                setState(AnimationState.ENDED);
             }
         }
     }
@@ -79,13 +78,13 @@ public class AnimatedGraphicElement extends GraphicElement implements AnimatedGr
     }
 
     @Override
-    public void setState(State state)
+    public void setState(AnimationState state)
     {
         this.state = state;
     }
 
     @Override
-    public State getState()
+    public AnimationState getState()
     {
         return state;
     }
@@ -93,13 +92,13 @@ public class AnimatedGraphicElement extends GraphicElement implements AnimatedGr
     @Override
     public boolean isAnimating()
     {
-        return getState() == State.ANIMATING;
+        return getState() == AnimationState.ANIMATING;
     }
 
     @Override
     public boolean isAnimationEnded()
     {
-        return getState() == State.ENDED;
+        return getState() == AnimationState.ENDED;
     }
 
     @Override
@@ -136,18 +135,6 @@ public class AnimatedGraphicElement extends GraphicElement implements AnimatedGr
     public void setAnimationLength(long animationLength)
     {
         this.animationLength = animationLength;
-    }
-
-    @Override
-    public long getAnimatingTime()
-    {
-        return animatingTime;
-    }
-
-    @Override
-    public void setAnimatingTime(long animatingTime)
-    {
-        this.animatingTime = animatingTime;
     }
 
     @Override

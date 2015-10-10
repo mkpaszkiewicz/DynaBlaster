@@ -3,7 +3,7 @@ package paszkiewicz.marcin.view.graphic.impl;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
-import paszkiewicz.marcin.util.SlickFactory;
+import paszkiewicz.marcin.util.factory.SlickFactory;
 import paszkiewicz.marcin.view.graphic.Graphic;
 
 public class GraphicElement implements Graphic

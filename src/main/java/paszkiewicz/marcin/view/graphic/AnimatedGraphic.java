@@ -4,7 +4,7 @@ import org.newdawn.slick.Animation;
 
 public interface AnimatedGraphic extends Graphic
 {
-    enum State
+    enum AnimationState
     {
         ANIMATING, ENDED;
     }
@@ -16,9 +16,9 @@ public interface AnimatedGraphic extends Graphic
     
     void resetAnimation();
     
-    void setState(State state);
+    void setState(AnimationState state);
     
-    State getState();
+    AnimationState getState();
     
     boolean isAnimating();
     
@@ -35,10 +35,6 @@ public interface AnimatedGraphic extends Graphic
     long getAnimationLength();
 
     void setAnimationLength(long animationLength);
-
-    long getAnimatingTime();
-
-    void setAnimatingTime(long animatingTime);
 
     Animation getAnimation();
 

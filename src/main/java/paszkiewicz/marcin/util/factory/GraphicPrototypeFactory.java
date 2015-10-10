@@ -1,4 +1,4 @@
-package paszkiewicz.marcin.util;
+package paszkiewicz.marcin.util.factory;
 
 import paszkiewicz.marcin.view.graphic.Graphic;
 import paszkiewicz.marcin.view.graphic.impl.GraphicElement;

@@ -1,6 +1,6 @@
 package paszkiewicz.marcin.view.graphic.sprite;
 
-public class Player
+public class Player extends Sprite
 {
 
 }

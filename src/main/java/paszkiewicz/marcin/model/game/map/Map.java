@@ -6,7 +6,6 @@ import java.util.List;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
-import paszkiewicz.marcin.util.AnimatatedGraphicPrototypeFactory;
 import paszkiewicz.marcin.util.Command;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic;
 import paszkiewicz.marcin.view.graphic.bonus.AbstractBonus;
@@ -124,26 +123,26 @@ public class Map extends TiledMap
 
     private void parseMap()
     {
-        int id;
+        int tileId;
 
         for (int i = 0; i < super.getWidth(); i++)
         {
             for (int j = 0; j < super.getHeight(); j++)
             {
-                id = getTileId(i, j, getLayerIndex(LayerName.BACKGROUND));
-                addBackgroundTile(id, i, j);
+                tileId = getTileId(i, j, getLayerIndex(LayerName.BACKGROUND));
+                addBackgroundTile(tileId, i, j);
 
-                id = getTileId(i, j, getLayerIndex(LayerName.NEXT_STAGE));
-                addIfNextStage(id, i, j);
+                tileId = getTileId(i, j, getLayerIndex(LayerName.NEXT_STAGE));
+                addIfNextStage(tileId, i, j);
 
-                id = getTileId(i, j, getLayerIndex(LayerName.BONUSES));
-                addIfBonus(id, i, j);
+                tileId = getTileId(i, j, getLayerIndex(LayerName.BONUSES));
+                addIfBonus(tileId, i, j);
 
-                id = getTileId(i, j, getLayerIndex(LayerName.WALLS));
-                addIfWall(id, i, j);
+                tileId = getTileId(i, j, getLayerIndex(LayerName.WALLS));
+                addIfWall(tileId, i, j);
 
-                id = getTileId(i, j, getLayerIndex(LayerName.MONSTERS));
-                addIfMonster(id, i, j);
+                tileId = getTileId(i, j, getLayerIndex(LayerName.MONSTERS));
+                addIfMonster(tileId, i, j);
             }
         }
     }
@@ -160,11 +159,27 @@ public class Map extends TiledMap
 
     private void addIfNextStage(int tileId, int i, int j)
     {
-        if (tileId == TileId.NEXT_STAGE)
+        Command factoryMethod = TileIdToFactoryMethodMapper.map.get(tileId);
+
+        if (factoryMethod != null)
         {
-            nextStage = AnimatatedGraphicPrototypeFactory.createNextStage();
+            nextStage = (AnimatedGraphic) factoryMethod.run();
             nextStage.setxTile(i);
             nextStage.setyTile(j);
+        }
+    }
+
+    private void addIfWall(int tileId, int i, int j)
+    {
+        Command factoryMethod = TileIdToFactoryMethodMapper.map.get(tileId);
+
+        if (factoryMethod != null)
+        {
+            AnimatedGraphic wall = (AnimatedGraphic) factoryMethod.run();
+            wall.setxTile(i);
+            wall.setyTile(j);
+            walls.add(wall);
+            blockedTiles[i][j] = true;
         }
     }
 
@@ -178,18 +193,6 @@ public class Map extends TiledMap
             bonus.setxTile(i);
             bonus.setyTile(j);
             bonuses.add(bonus);
-        }
-    }
-
-    private void addIfWall(int tileId, int i, int j)
-    {
-        if (tileId == TileId.WALL)
-        {
-            AnimatedGraphic wall = AnimatatedGraphicPrototypeFactory.createWall();
-            wall.setxTile(i);
-            wall.setyTile(j);
-            walls.add(wall);
-            blockedTiles[i][j] = true;
         }
     }
 

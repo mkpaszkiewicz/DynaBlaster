@@ -1,16 +1,12 @@
 package paszkiewicz.marcin.model.game.impl;
 
-import java.util.List;
-
 import org.newdawn.slick.Graphics;
 
-import paszkiewicz.marcin.model.game.AnimatedGameObject;
 import paszkiewicz.marcin.model.game.Game;
 import paszkiewicz.marcin.model.game.map.LayerName;
 import paszkiewicz.marcin.model.game.map.Map;
-import paszkiewicz.marcin.util.MapFactory;
+import paszkiewicz.marcin.util.factory.MapFactory;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic;
-import paszkiewicz.marcin.view.graphic.bonus.Bonus;
 
 public class SingleGame implements Game
 {
@@ -36,7 +32,7 @@ public class SingleGame implements Game
     public void draw(Graphics graphics)
     {
         map.render((int) map.getX(), (int) map.getY(), map.getLayerIndex(LayerName.BACKGROUND));
-        map.getNextStage().draw(graphics);
+
         for (AnimatedGraphic wall : map.getWalls())
         {
             wall.draw(graphics);
@@ -45,7 +41,7 @@ public class SingleGame implements Game
         {
             bonus.draw(graphics);
         }
-        // render((int) x, (int) y, getLayerIndex(LayerName.WALLS));
+        map.getNextStage().draw(graphics);
         // draw(map.getBonuses(), graphics);
 
     }
@@ -116,26 +112,5 @@ public class SingleGame implements Game
         float y = (int) (map.getY() + animatedGraphic.getyTile() * map.getTileHeight());
         animatedGraphic.setX(x);
         animatedGraphic.setY(y);
-    }
-
-    protected void draw(List<AnimatedGameObject> animatedGameObjects, Graphics graphics)
-    {
-        for (AnimatedGameObject animatedGameObject : animatedGameObjects)
-        {
-            if (animatedGameObject.isAnimationEnded())
-            {
-                animatedGameObject.applyVisitor(this);
-                animatedGameObjects.remove(animatedGameObject);
-            }
-            else
-            {
-                animatedGameObject.draw(graphics);
-            }
-        }
-    }
-
-    @Override
-    public void visit(Bonus bonus)
-    {
     }
 }

@@ -2,8 +2,9 @@ package paszkiewicz.marcin.model.game.map;
 
 import java.util.HashMap;
 
-import paszkiewicz.marcin.util.BonusPrototypeFactory;
 import paszkiewicz.marcin.util.Command;
+import paszkiewicz.marcin.util.factory.AnimatatedGraphicPrototypeFactory;
+import paszkiewicz.marcin.util.factory.BonusPrototypeFactory;
 
 public class TileIdToFactoryMethodMapper
 {
@@ -11,6 +12,20 @@ public class TileIdToFactoryMethodMapper
 
     static
     {
+        map.put(TileId.NEXT_STAGE, new Command() {
+            public Object run()
+            {
+                return AnimatatedGraphicPrototypeFactory.createNextStage();
+            };
+        });
+        
+        map.put(TileId.WALL, new Command() {
+            public Object run()
+            {
+                return AnimatatedGraphicPrototypeFactory.createWall();
+            };
+        });
+        
         map.put(TileId.DEATH, new Command() {
             public Object run()
             {
