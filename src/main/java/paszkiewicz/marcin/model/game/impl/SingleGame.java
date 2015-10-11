@@ -1,5 +1,7 @@
 package paszkiewicz.marcin.model.game.impl;
 
+import java.util.Iterator;
+
 import org.newdawn.slick.Graphics;
 
 import paszkiewicz.marcin.component.Bomb;
@@ -76,7 +78,7 @@ public class SingleGame implements Game
     @Override
     public void plantBomb(Player player)
     {
-        if (player.getAvailableBombs() == 0 || isGameOver())
+        if (!player.hasBomb() || isGameOver())
         {
             return;
         }
@@ -87,7 +89,7 @@ public class SingleGame implements Game
         bomb.setOwner(player);
         bomb.setxTile(player.getxTile());
         bomb.setyTile(player.getyTile());
-        System.out.println("dupa" + player.getxTile() + player.getyTile());
+
         map.getBombs().add(bomb);
     }
 
@@ -104,12 +106,12 @@ public class SingleGame implements Game
         {
             wall.draw(graphics);
         }
-        
+
         for (AnimatedGraphic bomb : map.getBombs())
         {
             bomb.draw(graphics);
         }
-        
+
         player.draw(graphics);
     }
 
@@ -133,13 +135,31 @@ public class SingleGame implements Game
         {
             wall.updateAnimation(delta);
         }
-        
-        for (AnimatedGraphic bomb : map.getBombs())
+
+        Iterator<AnimatedGraphic> iterator = map.getBombs().iterator();
+        while (iterator.hasNext())
         {
+            AnimatedGraphic bomb = iterator.next();
+            
             bomb.updateAnimation(delta);
+            
+            if (bomb.isAnimationEnded())
+            {
+                Player bombOwner = ((Bomb) bomb).getOwner();
+                bombOwner.setAvailableBombs(bombOwner.getAvailableBombs() + 1);
+                iterator.remove();
+                explode((Bomb) bomb);
+                //destroyWalls(bomb);
+            }
         }
-        
+
         player.updateAnimation(delta);
+    }
+
+    private void explode(Bomb bomb)
+    {
+        // TODO Auto-generated method stub
+        
     }
 
     protected void updatePositions(int delta)
@@ -155,12 +175,12 @@ public class SingleGame implements Game
         {
             updatePosition(wall);
         }
-        
+
         for (AnimatedGraphic bomb : map.getBombs())
         {
             updatePosition(bomb);
         }
-        
+
         updatePosition(player, delta);
     }
 
