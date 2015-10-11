@@ -50,7 +50,7 @@ public class SingleGameController extends AbstractController
         }
         else if (keyCode == Input.KEY_SPACE)
         {
-            // plant bomb
+            model.getGame().plantBomb(model.getGame().getPlayer());
         }
     }
 

@@ -15,4 +15,6 @@ public interface Game extends Drawable
     boolean isGameOver();
 
     boolean hasPlayerWon();
+
+    void plantBomb(Player player);
 }

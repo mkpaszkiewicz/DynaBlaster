@@ -5,13 +5,15 @@ import org.newdawn.slick.Graphics;
 
 public class Player extends Sprite
 {
+    protected static final float SHIFTING_LIMIT = 0.07f;
+
     protected static final float STARTING_SPEED = 0.0025f;
 
     protected static final float EXTRA_SPEED = 0.0003f;
 
     protected static final int STARTING_LIFES = 2;
 
-    protected static final int STARTING_BOMBS = 1;
+    protected static final int STARTING_BOMBS = 5;
 
     protected static final int STARTING_BOMB_RANGE = 1;
 
@@ -24,7 +26,7 @@ public class Player extends Sprite
     protected int lifes = STARTING_LIFES;
 
     protected Animation movingLeftAnimation, movingRightAnimation, movingUpAnimation, movingDownAnimation;
-    
+
     public Player()
     {
         setSpeed(STARTING_SPEED);
@@ -89,19 +91,19 @@ public class Player extends Sprite
                 setSpriteState(SpriteState.KILLED);
             }
         }
-        else if (isMovingLeft())
+        else if (isMovingLeft() || isShiftingLeft())
         {
             movingLeftAnimation.update(delta);
         }
-        else if (isMovingRight())
+        else if (isMovingRight() || isShiftingRight())
         {
             movingRightAnimation.update(delta);
         }
-        else if (isMovingUp())
+        else if (isMovingUp() || isShiftingUp())
         {
             movingUpAnimation.update(delta);
         }
-        else if (isMovingDown())
+        else if (isMovingDown() || isShiftingDown())
         {
             movingDownAnimation.update(delta);
         }
@@ -112,7 +114,7 @@ public class Player extends Sprite
     {
         float x = this.x - 3;
         float y = this.y - 7;
-        
+
         if (isDying() && animatingTime >= DYING_TIME)
         {
             setSpriteState(SpriteState.KILLED);
@@ -127,26 +129,85 @@ public class Player extends Sprite
         {
             dyingAnimation.draw(x, y);
         }
-        else if (isMovingLeft())
+        else if (isMovingLeft() || isShiftingLeft())
         {
             movingLeftAnimation.draw(x, y);
         }
-        else if (isMovingRight())
+        else if (isMovingRight() || isShiftingRight())
         {
             movingRightAnimation.draw(x, y);
         }
-        else if (isMovingUp())
+        else if (isMovingUp() || isShiftingUp())
         {
             movingUpAnimation.draw(x, y);
         }
-        else if (isMovingDown())
+        else if (isMovingDown() || isShiftingDown())
         {
             movingDownAnimation.draw(x, y);
         }
         else
         {
-            // TO DO porownaj shifty i dobierz wlasciwa animacje. zeby nie przeciagal ziomeczka jak kloca tylko zgrabnie to zanimowal
             graphics.drawImage(image, x, y);
+        }
+    }
+
+    protected boolean isShiftingLeft()
+    {
+        float xShift = getxShift();
+        float yShift = getyShift();
+
+        if (!isMoving() && Math.abs(xShift) > Math.abs(yShift) && xShift > SHIFTING_LIMIT)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    protected boolean isShiftingRight()
+    {
+        float xShift = getxShift();
+        float yShift = getyShift();
+
+        if (!isMoving() && Math.abs(xShift) > Math.abs(yShift) && xShift < -SHIFTING_LIMIT)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    protected boolean isShiftingUp()
+    {
+        float xShift = getxShift();
+        float yShift = getyShift();
+
+        if (!isMoving() && Math.abs(xShift) < Math.abs(yShift) && yShift > SHIFTING_LIMIT)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    protected boolean isShiftingDown()
+    {
+        float xShift = getxShift();
+        float yShift = getyShift();
+
+        if (!isMoving() && Math.abs(xShift) < Math.abs(yShift) && yShift < -SHIFTING_LIMIT)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

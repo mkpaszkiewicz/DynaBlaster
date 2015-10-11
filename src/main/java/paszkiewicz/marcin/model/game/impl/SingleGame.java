@@ -2,6 +2,7 @@ package paszkiewicz.marcin.model.game.impl;
 
 import org.newdawn.slick.Graphics;
 
+import paszkiewicz.marcin.component.Bomb;
 import paszkiewicz.marcin.component.sprite.Player;
 import paszkiewicz.marcin.component.sprite.PlayerToken;
 import paszkiewicz.marcin.model.CollisionDetector;
@@ -9,6 +10,7 @@ import paszkiewicz.marcin.model.game.Game;
 import paszkiewicz.marcin.model.impl.CollisionDetectorImpl;
 import paszkiewicz.marcin.model.map.LayerName;
 import paszkiewicz.marcin.model.map.Map;
+import paszkiewicz.marcin.util.factory.AnimatatedGraphicPrototypeFactory;
 import paszkiewicz.marcin.util.factory.MapFactory;
 import paszkiewicz.marcin.util.factory.SpriteFactory;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic;
@@ -25,9 +27,9 @@ public class SingleGame implements Game
     protected Player player;
 
     protected PlayerToken playerToken;
-    
+
     protected CollisionDetector collisionDetector;
-    
+
     protected boolean gameOver = false;
 
     protected boolean playerWon = false;
@@ -72,10 +74,21 @@ public class SingleGame implements Game
     }
 
     @Override
-    public void update(int delta)
+    public void plantBomb(Player player)
     {
-        updatePositions(delta);
-        updateAnimations(delta);
+        if (player.getAvailableBombs() == 0 || isGameOver())
+        {
+            return;
+        }
+
+        player.setAvailableBombs(player.getAvailableBombs() - 1);
+
+        Bomb bomb = (Bomb) AnimatatedGraphicPrototypeFactory.createBomb();
+        bomb.setOwner(player);
+        bomb.setxTile(player.getxTile());
+        bomb.setyTile(player.getyTile());
+        System.out.println("dupa" + player.getxTile() + player.getyTile());
+        map.getBombs().add(bomb);
     }
 
     @Override
@@ -91,7 +104,20 @@ public class SingleGame implements Game
         {
             wall.draw(graphics);
         }
+        
+        for (AnimatedGraphic bomb : map.getBombs())
+        {
+            bomb.draw(graphics);
+        }
+        
         player.draw(graphics);
+    }
+
+    @Override
+    public void update(int delta)
+    {
+        updatePositions(delta);
+        updateAnimations(delta);
     }
 
     protected void updateAnimations(int delta)
@@ -107,7 +133,12 @@ public class SingleGame implements Game
         {
             wall.updateAnimation(delta);
         }
-
+        
+        for (AnimatedGraphic bomb : map.getBombs())
+        {
+            bomb.updateAnimation(delta);
+        }
+        
         player.updateAnimation(delta);
     }
 
@@ -124,7 +155,12 @@ public class SingleGame implements Game
         {
             updatePosition(wall);
         }
-
+        
+        for (AnimatedGraphic bomb : map.getBombs())
+        {
+            updatePosition(bomb);
+        }
+        
         updatePosition(player, delta);
     }
 
@@ -140,9 +176,9 @@ public class SingleGame implements Game
     {
         float speed = dynamicGraphic.getSpeed();
         float shift;
-        
+
         collisionDetector.detectCollision(dynamicGraphic, map);
-        
+
         if (dynamicGraphic.isMovingDown())
         {
             shift = dynamicGraphic.getyShift() + delta * speed;
@@ -152,6 +188,7 @@ public class SingleGame implements Game
                 dynamicGraphic.setyTile(dynamicGraphic.getyTile() + 1);
             }
             dynamicGraphic.setyShift(shift);
+            dynamicGraphic.setxShift(dynamicGraphic.getxShift() * 0.92f);
         }
         else if (dynamicGraphic.isMovingUp())
         {
@@ -162,6 +199,7 @@ public class SingleGame implements Game
                 dynamicGraphic.setyTile(dynamicGraphic.getyTile() - 1);
             }
             dynamicGraphic.setyShift(shift);
+            dynamicGraphic.setxShift(dynamicGraphic.getxShift() * 0.92f);
         }
         else if (dynamicGraphic.isMovingRight())
         {
@@ -172,6 +210,7 @@ public class SingleGame implements Game
                 dynamicGraphic.setxTile(dynamicGraphic.getxTile() + 1);
             }
             dynamicGraphic.setxShift(shift);
+            dynamicGraphic.setyShift(dynamicGraphic.getyShift() * 0.92f);
         }
         else if (dynamicGraphic.isMovingLeft())
         {
@@ -182,6 +221,7 @@ public class SingleGame implements Game
                 dynamicGraphic.setxTile(dynamicGraphic.getxTile() - 1);
             }
             dynamicGraphic.setxShift(shift);
+            dynamicGraphic.setyShift(dynamicGraphic.getyShift() * 0.92f);
         }
         else if (!dynamicGraphic.isMoving())
         {
