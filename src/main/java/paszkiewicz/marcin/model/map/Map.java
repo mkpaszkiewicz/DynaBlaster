@@ -10,7 +10,7 @@ import paszkiewicz.marcin.component.bonus.AbstractBonus;
 import paszkiewicz.marcin.util.Command;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic;
 
-public class Map extends TiledMap
+public class Map extends TiledMap implements paszkiewicz.marcin.model.map.TiledMap
 {
     protected float x = 0;
 
@@ -80,12 +80,14 @@ public class Map extends TiledMap
     {
         return super.getHeight() * getTileHeight();
     }
-
+    
+    @Override
     public boolean isForbiddenTile(int xTile, int yTile)
     {
         return forbiddenTiles[xTile][yTile];
     }
-
+    
+    @Override
     public boolean isBlockedTile(int xTile, int yTile)
     {
         return blockedTiles[xTile][yTile];

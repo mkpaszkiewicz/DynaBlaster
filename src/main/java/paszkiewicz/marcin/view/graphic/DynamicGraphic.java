@@ -1,6 +1,6 @@
 package paszkiewicz.marcin.view.graphic;
 
-public interface DynamicGraphic
+public interface DynamicGraphic extends TiledGraphic
 {
     enum Movement
     {
@@ -11,8 +11,10 @@ public interface DynamicGraphic
 
     void setSpeed(float speed);
     
-    void stop();
+    boolean isPassingThroughBlockedTile();
     
+    void stop();
+
     void move(Movement movement);
 
     boolean isMoving();
@@ -24,4 +26,12 @@ public interface DynamicGraphic
     boolean isMovingUp();
 
     boolean isMovingDown();
+
+    float getxShift();
+
+    void setxShift(float xShift);
+
+    float getyShift();
+
+    void setyShift(float yShift);
 }

@@ -8,8 +8,12 @@ import paszkiewicz.marcin.view.graphic.impl.AnimatedGraphicElement;
 
 public class Sprite extends AnimatedGraphicElement implements DynamicGraphic
 {
-    protected float speed = 1;
-
+    protected float speed = 0.002f;
+    
+    protected float xShift = 0f;
+    
+    protected float yShift = 0f;
+    
     protected static final int DYING_TIME = 1000;
 
     protected boolean passingThroughWalls = false;
@@ -88,8 +92,9 @@ public class Sprite extends AnimatedGraphicElement implements DynamicGraphic
             graphics.drawImage(image, x, y);
         }
     }
-
-    public boolean isPassingThroughWalls()
+    
+    @Override
+    public boolean isPassingThroughBlockedTile()
     {
         return passingThroughWalls;
     }
@@ -181,5 +186,29 @@ public class Sprite extends AnimatedGraphicElement implements DynamicGraphic
     public boolean isKilled()
     {
         return getSpriteState() == SpriteState.KILLED;
+    }
+    
+    @Override
+    public float getxShift()
+    {
+        return xShift;
+    }
+    
+    @Override
+    public void setxShift(float xShift)
+    {
+        this.xShift = xShift;
+    }
+
+    @Override
+    public float getyShift()
+    {
+        return yShift;
+    }
+    
+    @Override
+    public void setyShift(float yShift)
+    {
+        this.yShift = yShift;
     }
 }

@@ -2,7 +2,7 @@ package paszkiewicz.marcin.view.graphic;
 
 import org.newdawn.slick.Animation;
 
-public interface AnimatedGraphic extends Graphic
+public interface AnimatedGraphic extends TiledGraphic
 {
     enum AnimationState
     {
@@ -24,14 +24,6 @@ public interface AnimatedGraphic extends Graphic
     
     boolean isAnimationEnded();
     
-    int getxTile();
-
-    void setxTile(int xTile);
-
-    int getyTile();
-
-    void setyTile(int yTile);
-
     long getAnimationLength();
 
     void setAnimationLength(long animationLength);

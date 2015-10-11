@@ -28,7 +28,7 @@ public class MainMenuController extends AbstractController
         {
             if (model.isMusicPaused())
             {
-                model.playMusic();
+                model.resumeMusic();
             }
             else
             {

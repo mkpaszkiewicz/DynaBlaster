@@ -5,9 +5,9 @@ import org.newdawn.slick.Graphics;
 
 public class Player extends Sprite
 {
-    protected static final float STARTING_SPEED = 0.047f;
+    protected static final float STARTING_SPEED = 0.0025f;
 
-    protected static final float EXTRA_SPEED = 0.008f;
+    protected static final float EXTRA_SPEED = 0.0003f;
 
     protected static final int STARTING_LIFES = 2;
 
@@ -24,7 +24,7 @@ public class Player extends Sprite
     protected int lifes = STARTING_LIFES;
 
     protected Animation movingLeftAnimation, movingRightAnimation, movingUpAnimation, movingDownAnimation;
-
+    
     public Player()
     {
         setSpeed(STARTING_SPEED);
@@ -110,6 +110,9 @@ public class Player extends Sprite
     @Override
     public void draw(Graphics graphics)
     {
+        float x = this.x - 3;
+        float y = this.y - 7;
+        
         if (isDying() && animatingTime >= DYING_TIME)
         {
             setSpriteState(SpriteState.KILLED);
@@ -142,6 +145,7 @@ public class Player extends Sprite
         }
         else
         {
+            // TO DO porownaj shifty i dobierz wlasciwa animacje. zeby nie przeciagal ziomeczka jak kloca tylko zgrabnie to zanimowal
             graphics.drawImage(image, x, y);
         }
     }
