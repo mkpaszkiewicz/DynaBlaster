@@ -2,16 +2,16 @@ package paszkiewicz.marcin.component;
 
 import paszkiewicz.marcin.view.graphic.impl.AnimatedGraphicElement;
 
-public class Explosion extends AnimatedGraphicElement
+public class Flame extends AnimatedGraphicElement
 {
     protected int priority = 0;
 
-    public Explosion()
+    public Flame()
     {
         super();
     }
 
-    public boolean hasHigherPriority(Explosion explosion)
+    public boolean hasHigherPriority(Flame explosion)
     {
         if (getPriority() >= explosion.getPriority())
         {

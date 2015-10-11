@@ -3,7 +3,7 @@ package paszkiewicz.marcin.util.factory;
 import org.newdawn.slick.Animation;
 
 import paszkiewicz.marcin.component.Bomb;
-import paszkiewicz.marcin.component.Explosion;
+import paszkiewicz.marcin.component.Flame;
 import paszkiewicz.marcin.util.SpriteSheets;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic.AnimationState;
@@ -11,6 +11,8 @@ import paszkiewicz.marcin.view.graphic.impl.AnimatedGraphicElement;
 
 public class AnimatatedGraphicPrototypeFactory
 {
+    private static int FLAME_ANIMATION_LENGTH = 1000;
+    
     private static AnimatedGraphic bomb = new Bomb();
 
     static
@@ -43,91 +45,99 @@ public class AnimatatedGraphicPrototypeFactory
 
     static
     {
-        fallingWall.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 29, 0, 35, 0, 150));
+        fallingWall.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 29, 0, 35, 0, 170));
         fallingWall.setImage(fallingWall.getAnimation().getImage(0));
         fallingWall.setState(AnimationState.ANIMATING);
+        fallingWall.setAnimationLength(FLAME_ANIMATION_LENGTH);
     }
     
-    private static AnimatedGraphic centreExplosion = new Explosion();
+    private static AnimatedGraphic centreFlame = new Flame();
 
     static
     {
-        centreExplosion.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 24, 0, 28, 0, 250));
-        centreExplosion.setImage(centreExplosion.getAnimation().getImage(0));
-        centreExplosion.setState(AnimationState.ANIMATING);
-        ((Explosion) centreExplosion).setPriority(2);
+        centreFlame.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 24, 0, 28, 0, 250));
+        centreFlame.setImage(centreFlame.getAnimation().getImage(0));
+        centreFlame.setState(AnimationState.ANIMATING);
+        centreFlame.setAnimationLength(FLAME_ANIMATION_LENGTH);
+        ((Flame) centreFlame).setPriority(2);
     }
 
-    private static AnimatedGraphic horizontalExplosion = new Explosion();
+    private static AnimatedGraphic horizontalFlame = new Flame();
 
     static
     {
         Animation animation = SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 20, 0, 23, 0, 250);
         animation.addFrame(animation.getImage(3), 250);
-        horizontalExplosion.setAnimation(animation);
-        horizontalExplosion.setImage(horizontalExplosion.getAnimation().getImage(0));
-        horizontalExplosion.setState(AnimationState.ANIMATING);
-        ((Explosion) horizontalExplosion).setPriority(1);
+        horizontalFlame.setAnimation(animation);
+        horizontalFlame.setImage(horizontalFlame.getAnimation().getImage(0));
+        horizontalFlame.setState(AnimationState.ANIMATING);
+        horizontalFlame.setAnimationLength(FLAME_ANIMATION_LENGTH);
+        ((Flame) horizontalFlame).setPriority(1);
     }
 
-    private static AnimatedGraphic verticalExplosion = new Explosion();
+    private static AnimatedGraphic verticalFlame = new Flame();
 
     static
     {
         Animation animation = SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 16, 0, 19, 0, 250);
         animation.addFrame(animation.getImage(3), 250);
-        verticalExplosion.setAnimation(animation);
-        verticalExplosion.setImage(verticalExplosion.getAnimation().getImage(0));
-        verticalExplosion.setState(AnimationState.ANIMATING);
-        ((Explosion) verticalExplosion).setPriority(1);
+        verticalFlame.setAnimation(animation);
+        verticalFlame.setImage(verticalFlame.getAnimation().getImage(0));
+        verticalFlame.setState(AnimationState.ANIMATING);
+        verticalFlame.setAnimationLength(FLAME_ANIMATION_LENGTH);
+        ((Flame) verticalFlame).setPriority(1);
     }
     
-    private static AnimatedGraphic topExplosion = new Explosion();
-
-    static
-    {
-        Animation animation = SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 8, 0, 11, 0, 250);
-        animation.addFrame(animation.getImage(3), 250);
-        topExplosion.setAnimation(animation);
-        topExplosion.setImage(topExplosion.getAnimation().getImage(0));
-        topExplosion.setState(AnimationState.ANIMATING);
-        ((Explosion) topExplosion).setPriority(0);
-    }
-    
-    private static AnimatedGraphic bottomExplosion = new Explosion();
+    private static AnimatedGraphic topFlame = new Flame();
 
     static
     {
         Animation animation = SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 0, 0, 3, 0, 250);
         animation.addFrame(animation.getImage(3), 250);
-        bottomExplosion.setAnimation(animation);
-        bottomExplosion.setImage(bottomExplosion.getAnimation().getImage(0));
-        bottomExplosion.setState(AnimationState.ANIMATING);
-        ((Explosion) bottomExplosion).setPriority(0);
+        topFlame.setAnimation(animation);
+        topFlame.setImage(topFlame.getAnimation().getImage(0));
+        topFlame.setState(AnimationState.ANIMATING);
+        topFlame.setAnimationLength(FLAME_ANIMATION_LENGTH);
+        ((Flame) topFlame).setPriority(0);
     }
     
-    private static AnimatedGraphic leftExplosion = new Explosion();
+    private static AnimatedGraphic bottomFlame = new Flame();
+
+    static
+    {
+        Animation animation = SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 8, 0, 11, 0, 250);
+        animation.addFrame(animation.getImage(3), 250);
+        bottomFlame.setAnimation(animation);
+        bottomFlame.setImage(bottomFlame.getAnimation().getImage(0));
+        bottomFlame.setState(AnimationState.ANIMATING);
+        bottomFlame.setAnimationLength(FLAME_ANIMATION_LENGTH);
+        ((Flame) bottomFlame).setPriority(0);
+    }
+    
+    private static AnimatedGraphic leftFlame = new Flame();
 
     static
     {
         Animation animation = SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 12, 0, 15, 0, 250);
         animation.addFrame(animation.getImage(3), 250);
-        leftExplosion.setAnimation(animation);
-        leftExplosion.setImage(leftExplosion.getAnimation().getImage(0));
-        leftExplosion.setState(AnimationState.ANIMATING);
-        ((Explosion) leftExplosion).setPriority(0);
+        leftFlame.setAnimation(animation);
+        leftFlame.setImage(leftFlame.getAnimation().getImage(0));
+        leftFlame.setState(AnimationState.ANIMATING);
+        leftFlame.setAnimationLength(FLAME_ANIMATION_LENGTH);
+        ((Flame) leftFlame).setPriority(0);
     }
     
-    private static AnimatedGraphic rightExplosion = new Explosion();
+    private static AnimatedGraphic rightFlame = new Flame();
 
     static
     {
         Animation animation = SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 4, 0, 7, 0, 250);
         animation.addFrame(animation.getImage(3), 250);
-        rightExplosion.setAnimation(animation);
-        rightExplosion.setImage(rightExplosion.getAnimation().getImage(0));
-        rightExplosion.setState(AnimationState.ANIMATING);
-        ((Explosion) rightExplosion).setPriority(0);
+        rightFlame.setAnimation(animation);
+        rightFlame.setImage(rightFlame.getAnimation().getImage(0));
+        rightFlame.setState(AnimationState.ANIMATING);
+        rightFlame.setAnimationLength(FLAME_ANIMATION_LENGTH);
+        ((Flame) rightFlame).setPriority(0);
     }
     
     public static AnimatedGraphic createBomb()
@@ -150,38 +160,38 @@ public class AnimatatedGraphicPrototypeFactory
         return fallingWall.clone();
     }
     
-    public static AnimatedGraphic createCentreExplosion()
+    public static AnimatedGraphic createCentreFlame()
     {
-        return centreExplosion.clone();
+        return centreFlame.clone();
     }
     
-    public static AnimatedGraphic createHorizontalExplosion()
+    public static AnimatedGraphic createHorizontalFlame()
     {
-        return horizontalExplosion.clone();
+        return horizontalFlame.clone();
     }
     
-    public static AnimatedGraphic createVerticalExplosion()
+    public static AnimatedGraphic createVerticalFlame()
     {
-        return verticalExplosion.clone();
+        return verticalFlame.clone();
     }
     
-    public static AnimatedGraphic createTopExplosion()
+    public static AnimatedGraphic createTopFlame()
     {
-        return topExplosion.clone();
+        return topFlame.clone();
     }
     
-    public static AnimatedGraphic createBottomExplosion()
+    public static AnimatedGraphic createBottomFlame()
     {
-        return bottomExplosion.clone();
+        return bottomFlame.clone();
     }
     
-    public static AnimatedGraphic createLeftExplosion()
+    public static AnimatedGraphic createLeftFlame()
     {
-        return leftExplosion.clone();
+        return leftFlame.clone();
     }
     
-    public static AnimatedGraphic createRightExplosion()
+    public static AnimatedGraphic createRightFlame()
     {
-        return rightExplosion.clone();
+        return rightFlame.clone();
     }
 }

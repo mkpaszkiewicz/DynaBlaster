@@ -8,6 +8,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import paszkiewicz.marcin.component.bonus.AbstractBonus;
 import paszkiewicz.marcin.util.Command;
+import paszkiewicz.marcin.util.factory.AnimatatedGraphicPrototypeFactory;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic;
 
 public class Map extends TiledMap implements paszkiewicz.marcin.model.map.TiledMap
@@ -18,7 +19,7 @@ public class Map extends TiledMap implements paszkiewicz.marcin.model.map.TiledM
 
     protected List<AnimatedGraphic> bombs;
 
-    protected List<AnimatedGraphic> explosions;
+    protected List<AnimatedGraphic> flames;
 
     protected List<AnimatedGraphic> fallingWalls;
 
@@ -38,7 +39,7 @@ public class Map extends TiledMap implements paszkiewicz.marcin.model.map.TiledM
     {
         super(filename);
         this.bombs = new LinkedList<AnimatedGraphic>();
-        this.explosions = new LinkedList<AnimatedGraphic>();
+        this.flames = new LinkedList<AnimatedGraphic>();
         this.fallingWalls = new LinkedList<AnimatedGraphic>();
         this.bonuses = new LinkedList<AbstractBonus>();
         this.walls = new LinkedList<AnimatedGraphic>();
@@ -80,13 +81,13 @@ public class Map extends TiledMap implements paszkiewicz.marcin.model.map.TiledM
     {
         return super.getHeight() * getTileHeight();
     }
-    
+
     @Override
     public boolean isForbiddenTile(int xTile, int yTile)
     {
         return forbiddenTiles[xTile][yTile];
     }
-    
+
     @Override
     public boolean isBlockedTile(int xTile, int yTile)
     {
@@ -98,9 +99,9 @@ public class Map extends TiledMap implements paszkiewicz.marcin.model.map.TiledM
         return bombs;
     }
 
-    public List<AnimatedGraphic> getExplosions()
+    public List<AnimatedGraphic> getFlames()
     {
-        return explosions;
+        return flames;
     }
 
     public List<AnimatedGraphic> getFallingWalls()
@@ -122,7 +123,29 @@ public class Map extends TiledMap implements paszkiewicz.marcin.model.map.TiledM
     {
         return nextStage;
     }
+    
+    public void destroyWall(int xTile, int yTile)
+    {
+        for (AnimatedGraphic wall : walls)
+        {
+            if (wall.getxTile() == xTile && wall.getyTile() == yTile)
+            {
+                AnimatedGraphic fallingWall = AnimatatedGraphicPrototypeFactory.createFallingWall();
+                fallingWall.setxTile(xTile);
+                fallingWall.setyTile(yTile);
+                fallingWalls.add(fallingWall);
 
+                walls.remove(wall);
+                return;
+            }
+        }
+    }
+    
+    public void unBlock(int xTile, int yTile)
+    {
+        blockedTiles[xTile][yTile] = false;        
+    }
+    
     private void parseMap()
     {
         int tileId;
