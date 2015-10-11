@@ -13,9 +13,9 @@ public class Player extends Sprite
 
     protected static final int STARTING_LIFES = 2;
 
-    protected static final int STARTING_BOMBS = 1;
+    protected static final int STARTING_BOMBS = 3;
 
-    protected static final int STARTING_BOMB_RANGE = 1;
+    protected static final int STARTING_BOMB_RANGE = 3;
 
     protected int allAvailableBombs = STARTING_BOMBS;
 

@@ -11,9 +11,22 @@ public class Flame extends AnimatedGraphicElement
         super();
     }
 
+    @Override
+    public Flame clone()
+    {
+        Flame flame = new Flame();
+        flame.setAnimation(animation.copy());
+        flame.setImage(image);
+        flame.setState(state);
+        flame.setAnimationLength(animationLength);
+        flame.setPriority(priority);
+
+        return flame;
+    }
+
     public boolean hasHigherPriority(Flame explosion)
     {
-        if (getPriority() >= explosion.getPriority())
+        if (getPriority() > explosion.getPriority())
         {
             return true;
         }
