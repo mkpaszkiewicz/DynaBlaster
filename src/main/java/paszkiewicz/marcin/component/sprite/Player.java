@@ -9,7 +9,7 @@ public class Player extends Sprite
 
     protected static final float STARTING_SPEED = 0.0025f;
 
-    protected static final float EXTRA_SPEED = 0.0003f;
+    public static final float EXTRA_SPEED = 0.0003f;
 
     protected static final int STARTING_LIFES = 2;
 

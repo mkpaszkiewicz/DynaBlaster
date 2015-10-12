@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 
 import paszkiewicz.marcin.component.Bomb;
 import paszkiewicz.marcin.component.Flame;
+import paszkiewicz.marcin.component.bonus.AbstractBonus;
 import paszkiewicz.marcin.component.sprite.Player;
 import paszkiewicz.marcin.component.sprite.PlayerToken;
 import paszkiewicz.marcin.model.CollisionDetector;
@@ -95,20 +96,20 @@ public class SingleGame implements Game
         bomb.setxTile(player.getxTile());
         bomb.setyTile(player.getyTile());
 
-        map.getBombs().add(bomb);
+        getMap().getBombs().add(bomb);
     }
 
     @Override
     public void draw(Graphics graphics)
     {
-        map.render((int) map.getX(), (int) map.getY(), map.getLayerIndex(LayerName.BACKGROUND));
-        map.getNextStage().draw(graphics);
-        draw(map.getBonuses(), graphics);
-        draw(map.getWalls(), graphics);
-        draw(map.getFallingWalls(), graphics);
-        draw(map.getBombs(), graphics);
-        draw(map.getFlames(), graphics);
-        player.draw(graphics);
+        getMap().render((int) getMap().getX(), (int) getMap().getY(), getMap().getLayerIndex(LayerName.BACKGROUND));
+        getMap().getNextStage().draw(graphics);
+        draw(getMap().getBonuses(), graphics);
+        draw(getMap().getWalls(), graphics);
+        draw(getMap().getFallingWalls(), graphics);
+        draw(getMap().getBombs(), graphics);
+        draw(getMap().getFlames(), graphics);
+        getPlayer().draw(graphics);
     }
 
     protected void draw(List<? extends AnimatedGraphic> animatedGraphics, Graphics graphics)
@@ -124,24 +125,25 @@ public class SingleGame implements Game
     {
         updateAnimations(delta);
         updatePositions(delta);
+        collectBonus();
     }
 
     protected void updateAnimations(int delta)
     {
-        Iterator<AnimatedGraphic> iterator;
-        map.getNextStage().updateAnimation(delta);
+        getMap().getNextStage().updateAnimation(delta);
 
-        for (AnimatedGraphic bonus : map.getBonuses())
+        for (AnimatedGraphic bonus : getMap().getBonuses())
         {
             bonus.updateAnimation(delta);
         }
 
-        for (AnimatedGraphic wall : map.getWalls())
+        for (AnimatedGraphic wall : getMap().getWalls())
         {
             wall.updateAnimation(delta);
         }
 
-        iterator = map.getBombs().iterator();
+        Iterator<AnimatedGraphic> iterator;
+        iterator = getMap().getBombs().iterator();
         while (iterator.hasNext())
         {
             AnimatedGraphic bomb = iterator.next();
@@ -157,7 +159,7 @@ public class SingleGame implements Game
             }
         }
 
-        iterator = map.getFlames().iterator();
+        iterator = getMap().getFlames().iterator();
         while (iterator.hasNext())
         {
             AnimatedGraphic flame = iterator.next();
@@ -170,7 +172,7 @@ public class SingleGame implements Game
             }
         }
 
-        iterator = map.getFallingWalls().iterator();
+        iterator = getMap().getFallingWalls().iterator();
         while (iterator.hasNext())
         {
             AnimatedGraphic fallingWall = iterator.next();
@@ -179,27 +181,27 @@ public class SingleGame implements Game
 
             if (fallingWall.isAnimationEnded())
             {
-                map.unBlock(fallingWall.getxTile(), fallingWall.getyTile());
+                getMap().unBlock(fallingWall.getxTile(), fallingWall.getyTile());
                 iterator.remove();
             }
         }
 
-        player.updateAnimation(delta);
+        getPlayer().updateAnimation(delta);
     }
 
     protected void explode(Bomb bomb)
     {
-        List<AnimatedGraphic> flames = ExplosionFactory.createExplosion(bomb, map);
-        map.getFlames().addAll(flames);
+        List<AnimatedGraphic> flames = ExplosionFactory.createExplosion(bomb, getMap());
+        getMap().getFlames().addAll(flames);
         explodeBombsIfOverlapFlame();
         deleteFlamesWithLowerPriority();
     }
 
     protected void explodeBombsIfOverlapFlame()
     {
-        for (AnimatedGraphic bomb : map.getBombs())
+        for (AnimatedGraphic bomb : getMap().getBombs())
         {
-            for (AnimatedGraphic flame : map.getFlames())
+            for (AnimatedGraphic flame : getMap().getFlames())
             {
                 if (collisionDetector.isCollision(bomb, flame))
                 {
@@ -220,7 +222,7 @@ public class SingleGame implements Game
             {
                 if (collisionDetector.isCollision(flame1, flame2) && ((Flame) flame1).hasHigherPriority((Flame) flame2))
                 {
-                    map.getFlames().remove(flame2);
+                    getMap().getFlames().remove(flame2);
                 }
             }
         }
@@ -228,13 +230,13 @@ public class SingleGame implements Game
 
     protected void updatePositions(int delta)
     {
-        updatePosition(map.getNextStage());
-        updatePosition(map.getBonuses());
-        updatePosition(map.getWalls());
-        updatePosition(map.getFallingWalls());
-        updatePosition(map.getBombs());
-        updatePosition(map.getFlames());
-        updatePosition(player, delta);
+        updatePosition(getMap().getNextStage());
+        updatePosition(getMap().getBonuses());
+        updatePosition(getMap().getWalls());
+        updatePosition(getMap().getFallingWalls());
+        updatePosition(getMap().getBombs());
+        updatePosition(getMap().getFlames());
+        updatePosition(getPlayer(), delta);
     }
 
     protected void updatePosition(List<? extends AnimatedGraphic> animatedGraphics)
@@ -247,8 +249,8 @@ public class SingleGame implements Game
 
     protected void updatePosition(AnimatedGraphic animatedGraphic)
     {
-        float x = (int) (map.getX() + animatedGraphic.getxTile() * map.getTileWidth());
-        float y = (int) (map.getY() + animatedGraphic.getyTile() * map.getTileHeight());
+        float x = (int) (getMap().getX() + animatedGraphic.getxTile() * getMap().getTileWidth());
+        float y = (int) (getMap().getY() + animatedGraphic.getyTile() * getMap().getTileHeight());
         animatedGraphic.setX(x);
         animatedGraphic.setY(y);
     }
@@ -266,7 +268,7 @@ public class SingleGame implements Game
         float speed = dynamicGraphic.getSpeed();
         float shift;
 
-        collisionDetector.detectCollision(dynamicGraphic, map);
+        collisionDetector.detectCollision(dynamicGraphic, getMap());
 
         if (dynamicGraphic.isMovingDown())
         {
@@ -318,9 +320,25 @@ public class SingleGame implements Game
             dynamicGraphic.setyShift(dynamicGraphic.getyShift() * 0.92f);
         }
 
-        float x = (int) (map.getX() + (dynamicGraphic.getxTile() + dynamicGraphic.getxShift()) * map.getTileWidth());
-        float y = (int) (map.getY() + (dynamicGraphic.getyTile() + dynamicGraphic.getyShift()) * map.getTileHeight());
+        float x = (int) (getMap().getX() + (dynamicGraphic.getxTile() + dynamicGraphic.getxShift()) * getMap().getTileWidth());
+        float y = (int) (getMap().getY() + (dynamicGraphic.getyTile() + dynamicGraphic.getyShift()) * getMap().getTileHeight());
         dynamicGraphic.setX(x);
         dynamicGraphic.setY(y);
+    }
+
+    protected void collectBonus()
+    {
+        Iterator<AbstractBonus> iterator;
+        iterator = getMap().getBonuses().iterator();
+        while (iterator.hasNext())
+        {
+            AbstractBonus bonus = iterator.next();
+
+            if (collisionDetector.isCollision(getPlayer(), bonus))
+            {
+                bonus.modifyFeature(getPlayer());
+                iterator.remove();
+            }
+        }
     }
 }

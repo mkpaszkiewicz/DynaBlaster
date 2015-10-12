@@ -7,6 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 import paszkiewicz.marcin.component.bonus.AbstractBonus;
+import paszkiewicz.marcin.component.sprite.Sprite;
 import paszkiewicz.marcin.util.Command;
 import paszkiewicz.marcin.util.factory.AnimatatedGraphicPrototypeFactory;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic;
@@ -27,7 +28,7 @@ public class Map extends TiledMap implements paszkiewicz.marcin.model.map.TiledM
 
     protected List<AnimatedGraphic> walls;
 
-    // protected List<Sprite> monsters;
+    protected List<Sprite> monsters;
 
     protected AnimatedGraphic nextStage;
 
@@ -43,7 +44,8 @@ public class Map extends TiledMap implements paszkiewicz.marcin.model.map.TiledM
         this.fallingWalls = new LinkedList<AnimatedGraphic>();
         this.bonuses = new LinkedList<AbstractBonus>();
         this.walls = new LinkedList<AnimatedGraphic>();
-
+        this.monsters = new LinkedList<Sprite>();
+        
         this.blockedTiles = new boolean[super.getWidth()][super.getHeight()];
         this.forbiddenTiles = new boolean[super.getWidth()][super.getHeight()];
 
@@ -118,7 +120,12 @@ public class Map extends TiledMap implements paszkiewicz.marcin.model.map.TiledM
     {
         return walls;
     }
-
+    
+    public List<Sprite> getMonsters()
+    {
+        return monsters;
+    }
+    
     public AnimatedGraphic getNextStage()
     {
         return nextStage;

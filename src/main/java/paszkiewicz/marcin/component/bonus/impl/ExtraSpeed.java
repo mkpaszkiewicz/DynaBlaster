@@ -8,6 +8,18 @@ public class ExtraSpeed extends AbstractBonus
     @Override
     public void modifyFeature(Player player)
     {
-        // player.addExtraSpeed();
+        player.setSpeed(player.getSpeed() + Player.EXTRA_SPEED);
+    }
+    
+    @Override
+    public ExtraSpeed clone()
+    {
+        ExtraSpeed bonus = new ExtraSpeed();
+        bonus.setAnimationLength(animationLength);
+        bonus.setAnimation(animation.copy());
+        bonus.setImage(image);
+        bonus.setState(state);
+
+        return bonus;
     }
 }

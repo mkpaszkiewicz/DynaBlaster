@@ -8,6 +8,18 @@ public class RemoveSpeed extends AbstractBonus
     @Override
     public void modifyFeature(Player player)
     {
-        // player.removeSpeed();
+        player.setSpeed(player.getSpeed() + Player.EXTRA_SPEED);
+    }
+
+    @Override
+    public RemoveSpeed clone()
+    {
+        RemoveSpeed bonus = new RemoveSpeed();
+        bonus.setAnimationLength(animationLength);
+        bonus.setAnimation(animation.copy());
+        bonus.setImage(image);
+        bonus.setState(state);
+
+        return bonus;
     }
 }
