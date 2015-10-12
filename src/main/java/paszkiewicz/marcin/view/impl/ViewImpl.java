@@ -6,11 +6,16 @@ import org.newdawn.slick.Graphics;
 import paszkiewicz.marcin.component.menu.Menu;
 import paszkiewicz.marcin.model.game.Game;
 import paszkiewicz.marcin.model.map.Map;
+import paszkiewicz.marcin.util.factory.GraphicPrototypeFactory;
 import paszkiewicz.marcin.view.View;
 import paszkiewicz.marcin.view.graphic.Graphic;
 
 public class ViewImpl implements View
-{
+{   
+    protected Graphic gameOver = GraphicPrototypeFactory.createGameOverGraphic();
+    
+    protected Graphic playerWon = GraphicPrototypeFactory.createPlayerWonGraphic();
+    
     @Override
     public void draw(Game game, Graphics graphics)
     {
@@ -24,6 +29,25 @@ public class ViewImpl implements View
         map.setY(y);
 
         game.draw(graphics);
+        if (game.isGameOver())
+        {
+            if(game.hasPlayerWon())
+            {
+                x = map.getX() + map.getWidth() / 2 - playerWon.getWidth() / 2;
+                y = map.getY() + map.getHeight() / 2 - playerWon.getHeight() / 2;
+                playerWon.setX(x);
+                playerWon.setY(y);
+                playerWon.draw(graphics);
+            }
+            else
+            {
+                x = map.getX() + map.getWidth() / 2 - gameOver.getWidth() / 2;
+                y = map.getY() + map.getHeight() / 2 - gameOver.getHeight() / 2;
+                gameOver.setX(x);
+                gameOver.setY(y);
+                gameOver.draw(graphics);
+            }
+        }
     }
 
     @Override
