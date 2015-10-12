@@ -9,13 +9,13 @@ public class Player extends Sprite
 
     protected static final float STARTING_SPEED = 0.0025f;
 
-    public static final float EXTRA_SPEED = 0.0003f;
+    public static final float EXTRA_SPEED = 0.0004f;
 
     protected static final int STARTING_LIFES = 2;
 
-    protected static final int STARTING_BOMBS = 3;
+    protected final int STARTING_BOMBS = 1;
 
-    protected static final int STARTING_BOMB_RANGE = 3;
+    protected final int STARTING_BOMB_RANGE = 1;
 
     protected int allAvailableBombs = STARTING_BOMBS;
 
@@ -63,6 +63,13 @@ public class Player extends Sprite
         setAllAvailableBombs(token.getRememberedAllAvailableBombs());
         setBombRange(token.getRememberedBombRange());
         setSpeed(token.getRememberedSpeed());
+    }
+
+    @Override
+    public void resetAnimation()
+    {
+        super.resetAnimation();
+        dyingAnimation.restart();
     }
 
     @Deprecated
@@ -290,9 +297,14 @@ public class Player extends Sprite
     {
         this.lifes = lifes;
     }
-    
+
     public boolean hasBomb()
     {
         return availableBombs > 0;
+    }
+
+    public boolean isDead()
+    {
+        return lifes < 1;
     }
 }

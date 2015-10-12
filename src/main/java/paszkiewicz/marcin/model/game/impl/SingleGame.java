@@ -11,6 +11,8 @@ import paszkiewicz.marcin.component.Flame;
 import paszkiewicz.marcin.component.bonus.AbstractBonus;
 import paszkiewicz.marcin.component.sprite.Player;
 import paszkiewicz.marcin.component.sprite.PlayerToken;
+import paszkiewicz.marcin.component.sprite.Sprite;
+import paszkiewicz.marcin.component.sprite.Sprite.SpriteState;
 import paszkiewicz.marcin.model.CollisionDetector;
 import paszkiewicz.marcin.model.game.Game;
 import paszkiewicz.marcin.model.impl.CollisionDetectorImpl;
@@ -22,7 +24,7 @@ import paszkiewicz.marcin.util.factory.MapFactory;
 import paszkiewicz.marcin.util.factory.SpriteFactory;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic.AnimationState;
-import paszkiewicz.marcin.view.graphic.DynamicGraphic;
+import paszkiewicz.marcin.view.graphic.Drawable;
 
 public class SingleGame implements Game
 {
@@ -111,14 +113,15 @@ public class SingleGame implements Game
         draw(getMap().getFallingWalls(), graphics);
         draw(getMap().getBombs(), graphics);
         draw(getMap().getFlames(), graphics);
+        draw(getMap().getMonsters(), graphics);
         getPlayer().draw(graphics);
     }
 
-    protected void draw(List<? extends AnimatedGraphic> animatedGraphics, Graphics graphics)
+    protected void draw(List<? extends Drawable> drawables, Graphics graphics)
     {
-        for (AnimatedGraphic animatedGraphic : animatedGraphics)
+        for (Drawable drawable : drawables)
         {
-            animatedGraphic.draw(graphics);
+            drawable.draw(graphics);
         }
     }
 
@@ -127,10 +130,10 @@ public class SingleGame implements Game
     {
         updateAnimations(delta);
         updatePositions(delta);// moveMonsters(delta);
-        collectBonus();
-        // killSpritesIfEnteredExplosion
-        // killPlayerIfBumpedOnMonster
-        // resetGameIfPlayerKilled
+        collectBonus(getPlayer());
+        killSpritesIfEnteredExplosion();
+        killPlayerIfBumpedOnMonster(getPlayer());
+        resetGameIfPlayerIsKilled();
         nextStageIfClear();
     }
 
@@ -138,14 +141,20 @@ public class SingleGame implements Game
     {
         getMap().getNextStage().updateAnimation(delta);
 
-        for (AnimatedGraphic bonus : getMap().getBonuses())
-        {
-            bonus.updateAnimation(delta);
-        }
+        updateAnimation(getMap().getBonuses(), delta);
+        updateAnimation(getMap().getWalls(), delta);
+        updateAnimation(getMap().getMonsters(), delta);
 
-        for (AnimatedGraphic wall : getMap().getWalls())
+        Iterator<Sprite> iter;
+        iter = getMap().getMonsters().iterator();
+        while (iter.hasNext())
         {
-            wall.updateAnimation(delta);
+            Sprite monster = iter.next();
+
+            if (monster.isKilled())
+            {
+                iter.remove();
+            }
         }
 
         Iterator<AnimatedGraphic> iterator;
@@ -195,6 +204,14 @@ public class SingleGame implements Game
         getPlayer().updateAnimation(delta);
     }
 
+    protected void updateAnimation(List<? extends AnimatedGraphic> animatedGraphics, int delta)
+    {
+        for (AnimatedGraphic animatedGraphic : animatedGraphics)
+        {
+            animatedGraphic.updateAnimation(delta);
+        }
+    }
+
     protected void explode(Bomb bomb)
     {
         List<AnimatedGraphic> flames = ExplosionFactory.createExplosion(bomb, getMap());
@@ -242,6 +259,7 @@ public class SingleGame implements Game
         updatePosition(getMap().getFallingWalls());
         updatePosition(getMap().getBombs());
         updatePosition(getMap().getFlames());
+        updatePosition(getMap().getMonsters(), delta);
         updatePosition(getPlayer(), delta);
     }
 
@@ -261,78 +279,83 @@ public class SingleGame implements Game
         animatedGraphic.setY(y);
     }
 
-    protected void updatePosition(List<? extends DynamicGraphic> dynamicGraphics, int delta)
+    protected void updatePosition(List<? extends Sprite> sprites, int delta)
     {
-        for (DynamicGraphic dynamicGraphic : dynamicGraphics)
+        for (Sprite sprite : sprites)
         {
-            updatePosition(dynamicGraphic, delta);
+            updatePosition(sprite, delta);
         }
     }
 
-    protected void updatePosition(DynamicGraphic dynamicGraphic, int delta)
+    protected void updatePosition(Sprite sprite, int delta)
     {
-        float speed = dynamicGraphic.getSpeed();
+        if (!sprite.isNormal())
+        {
+            return;
+        }
+
+        float speed = sprite.getSpeed();
         float shift;
 
-        collisionDetector.detectCollision(dynamicGraphic, getMap());
+        collisionDetector.detectCollision(sprite, getMap());
 
-        if (dynamicGraphic.isMovingDown())
+        if (sprite.isMovingDown())
         {
-            shift = dynamicGraphic.getyShift() + delta * speed;
+            shift = sprite.getyShift() + delta * speed;
             if (shift > 0.5f)
             {
                 shift--;
-                dynamicGraphic.setyTile(dynamicGraphic.getyTile() + 1);
+                sprite.setyTile(sprite.getyTile() + 1);
             }
-            dynamicGraphic.setyShift(shift);
-            dynamicGraphic.setxShift(dynamicGraphic.getxShift() * 0.92f);
+            sprite.setyShift(shift);
+            sprite.setxShift(sprite.getxShift() * 0.92f);
         }
-        else if (dynamicGraphic.isMovingUp())
+        else if (sprite.isMovingUp())
         {
-            shift = dynamicGraphic.getyShift() - delta * speed;
+            shift = sprite.getyShift() - delta * speed;
             if (shift < -0.5f)
             {
                 shift++;
-                dynamicGraphic.setyTile(dynamicGraphic.getyTile() - 1);
+                sprite.setyTile(sprite.getyTile() - 1);
             }
-            dynamicGraphic.setyShift(shift);
-            dynamicGraphic.setxShift(dynamicGraphic.getxShift() * 0.92f);
+            sprite.setyShift(shift);
+            sprite.setxShift(sprite.getxShift() * 0.92f);
         }
-        else if (dynamicGraphic.isMovingRight())
+        else if (sprite.isMovingRight())
         {
-            shift = dynamicGraphic.getxShift() + delta * speed;
+            shift = sprite.getxShift() + delta * speed;
             if (shift > 0.5f)
             {
                 shift--;
-                dynamicGraphic.setxTile(dynamicGraphic.getxTile() + 1);
+                sprite.setxTile(sprite.getxTile() + 1);
             }
-            dynamicGraphic.setxShift(shift);
-            dynamicGraphic.setyShift(dynamicGraphic.getyShift() * 0.92f);
+            sprite.setxShift(shift);
+            sprite.setyShift(sprite.getyShift() * 0.92f);
         }
-        else if (dynamicGraphic.isMovingLeft())
+        else if (sprite.isMovingLeft())
         {
-            shift = dynamicGraphic.getxShift() - delta * speed;
+            shift = sprite.getxShift() - delta * speed;
             if (shift < -0.5f)
             {
                 shift++;
-                dynamicGraphic.setxTile(dynamicGraphic.getxTile() - 1);
+                sprite.setxTile(sprite.getxTile() - 1);
             }
-            dynamicGraphic.setxShift(shift);
-            dynamicGraphic.setyShift(dynamicGraphic.getyShift() * 0.92f);
+            sprite.setxShift(shift);
+            sprite.setyShift(sprite.getyShift() * 0.92f);
         }
-        else if (!dynamicGraphic.isMoving())
+        else if (!sprite.isMoving())
         {
-            dynamicGraphic.setxShift(dynamicGraphic.getxShift() * 0.92f);
-            dynamicGraphic.setyShift(dynamicGraphic.getyShift() * 0.92f);
+            sprite.setxShift(sprite.getxShift() * 0.92f);
+            sprite.setyShift(sprite.getyShift() * 0.92f);
         }
 
-        float x = (int) (getMap().getX() + (dynamicGraphic.getxTile() + dynamicGraphic.getxShift()) * getMap().getTileWidth());
-        float y = (int) (getMap().getY() + (dynamicGraphic.getyTile() + dynamicGraphic.getyShift()) * getMap().getTileHeight());
-        dynamicGraphic.setX(x);
-        dynamicGraphic.setY(y);
+        float x = (int) (getMap().getX() + (sprite.getxTile() + sprite.getxShift()) * getMap().getTileWidth());
+        float y = (int) (getMap().getY() + (sprite.getyTile() + sprite.getyShift()) * getMap().getTileHeight());
+        sprite.setX(x);
+        sprite.setY(y);
     }
 
-    protected void collectBonus()
+    protected void collectBonus(Player player)
     {
         Iterator<AbstractBonus> iterator;
         iterator = getMap().getBonuses().iterator();
@@ -340,22 +363,91 @@ public class SingleGame implements Game
         {
             AbstractBonus bonus = iterator.next();
 
-            if (collisionDetector.isCollision(getPlayer(), bonus))
+            if (collisionDetector.isCollision(player, bonus))
             {
-                bonus.modifyFeature(getPlayer());
+                bonus.modifyFeature(player);
                 iterator.remove();
             }
         }
     }
 
+    protected void killSpritesIfEnteredExplosion()
+    {
+        killSpriteIfEnteredExplosion(player);
+        for (Sprite monster : getMap().getMonsters())
+        {
+            killSpriteIfEnteredExplosion(monster);
+        }
+    }
+
+    protected void killSpriteIfEnteredExplosion(Sprite sprite)
+    {
+        if (!sprite.isNormal())
+        {
+            return;
+        }
+
+        for (AnimatedGraphic flame : getMap().getFlames())
+        {
+            if (collisionDetector.isCollision(sprite, flame))
+            {
+                sprite.setSpriteState(SpriteState.DYING);
+                return;
+            }
+        }
+    }
+
+    protected void killPlayerIfBumpedOnMonster(Player player)
+    {
+        if (!player.isNormal())
+        {
+            return;
+        }
+
+        for (Sprite monster : getMap().getMonsters())
+        {
+            if (collisionDetector.isCollision(player, monster))
+            {
+                player.setSpriteState(SpriteState.DYING);
+                return;
+            }
+        }
+    }
+
+    protected void resetGameIfPlayerIsKilled()
+    {
+        if (!getPlayer().isKilled())
+        {
+            return;
+        }
+
+        getPlayer().setLifes(getPlayer().getLifes() - 1);
+        if (getPlayer().isDead())
+        {
+            gameOver = true;
+        }
+        else
+        {
+            resetGame();
+        }
+    }
+
+    protected void resetGame()
+    {
+        getPlayer().restoreState(playerToken);
+        getPlayer().resetAnimation();
+        getPlayer().setSpriteState(SpriteState.NORMAL);
+        prepareNewStage();
+    }
+
     protected void nextStageIfClear()
     {
-        if (map.getMonsters().isEmpty())
+        if (getMap().getMonsters().isEmpty())
         {
             highlightWalls();
-            map.getNextStage().setAnimationState(AnimationState.ANIMATING);
+            getMap().getNextStage().setAnimationState(AnimationState.ANIMATING);
 
-            if (collisionDetector.isCollision(player, map.getNextStage()))
+            if (collisionDetector.isCollision(player, getMap().getNextStage()))
             {
                 nextStage();
             }
@@ -379,7 +471,6 @@ public class SingleGame implements Game
                 wall.setAnimationState(AnimationState.ANIMATING);
             }
         }
-
     }
 
     protected void nextStage()

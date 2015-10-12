@@ -45,7 +45,7 @@ public class Map extends TiledMap implements paszkiewicz.marcin.model.map.TiledM
         this.bonuses = new LinkedList<AbstractBonus>();
         this.walls = new LinkedList<AnimatedGraphic>();
         this.monsters = new LinkedList<Sprite>();
-        
+
         this.blockedTiles = new boolean[super.getWidth()][super.getHeight()];
         this.forbiddenTiles = new boolean[super.getWidth()][super.getHeight()];
 
@@ -120,17 +120,17 @@ public class Map extends TiledMap implements paszkiewicz.marcin.model.map.TiledM
     {
         return walls;
     }
-    
+
     public List<Sprite> getMonsters()
     {
         return monsters;
     }
-    
+
     public AnimatedGraphic getNextStage()
     {
         return nextStage;
     }
-    
+
     public void destroyWall(int xTile, int yTile)
     {
         for (AnimatedGraphic wall : walls)
@@ -147,12 +147,12 @@ public class Map extends TiledMap implements paszkiewicz.marcin.model.map.TiledM
             }
         }
     }
-    
+
     public void unBlock(int xTile, int yTile)
     {
-        blockedTiles[xTile][yTile] = false;        
+        blockedTiles[xTile][yTile] = false;
     }
-    
+
     private void parseMap()
     {
         int tileId;
@@ -230,7 +230,14 @@ public class Map extends TiledMap implements paszkiewicz.marcin.model.map.TiledM
 
     private void addIfMonster(int tileId, int i, int j)
     {
-        // TODO Auto-generated method stub
+        Command factoryMethod = TileIdToFactoryMethodMapper.map.get(tileId);
 
+        if (factoryMethod != null)
+        {
+            Sprite monster = (Sprite) factoryMethod.run();
+            monster.setxTile(i);
+            monster.setyTile(j);
+            monsters.add(monster);
+        }
     }
 }

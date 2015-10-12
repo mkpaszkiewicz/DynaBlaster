@@ -60,7 +60,7 @@ public class Sprite extends AnimatedGraphicElement implements DynamicGraphic
                 setSpriteState(SpriteState.KILLED);
             }
         }
-        else if (isMoving())
+        else
         {
             animation.update(delta);
         }
@@ -69,6 +69,8 @@ public class Sprite extends AnimatedGraphicElement implements DynamicGraphic
     @Override
     public void draw(Graphics graphics)
     {
+        float y = this.y - 4;
+        
         if (isDying() && animatingTime >= DYING_TIME)
         {
             setSpriteState(SpriteState.KILLED);
@@ -83,13 +85,9 @@ public class Sprite extends AnimatedGraphicElement implements DynamicGraphic
         {
             dyingAnimation.draw(x, y);
         }
-        else if (isMoving())
-        {
-            animation.draw(x, y);
-        }
         else
         {
-            graphics.drawImage(image, x, y);
+            animation.draw(x, y);
         }
     }
     

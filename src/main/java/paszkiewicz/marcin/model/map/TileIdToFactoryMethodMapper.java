@@ -5,6 +5,7 @@ import java.util.HashMap;
 import paszkiewicz.marcin.util.Command;
 import paszkiewicz.marcin.util.factory.AnimatatedGraphicPrototypeFactory;
 import paszkiewicz.marcin.util.factory.BonusPrototypeFactory;
+import paszkiewicz.marcin.util.factory.SpriteFactory;
 
 public class TileIdToFactoryMethodMapper
 {
@@ -72,6 +73,36 @@ public class TileIdToFactoryMethodMapper
             public Object run()
             {
                 return BonusPrototypeFactory.createRemoveSpeed();
+            };
+        });
+        map.put(TileId.BALLOON, new Command() {
+            public Object run()
+            {
+                return SpriteFactory.createBalloon();
+            };
+        });
+        map.put(TileId.GHOST, new Command() {
+            public Object run()
+            {
+                return SpriteFactory.createGhost();
+            };
+        });
+        map.put(TileId.BROOM, new Command() {
+            public Object run()
+            {
+                return SpriteFactory.createBroom();
+            };
+        });
+        map.put(TileId.PUMP, new Command() {
+            public Object run()
+            {
+                return SpriteFactory.createPump();
+            };
+        });
+        map.put(TileId.STAIN, new Command() {
+            public Object run()
+            {
+                return SpriteFactory.createStain();
             };
         });
     }
