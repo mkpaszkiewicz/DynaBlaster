@@ -20,7 +20,7 @@ public class BonusPrototypeFactory
     {
         extraBomb.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 3, 2, 4, 2, 400));
         extraBomb.setImage(extraBomb.getAnimation().getImage(0));
-        extraBomb.setState(AnimationState.ANIMATING);
+        extraBomb.setAnimationState(AnimationState.ANIMATING);
     }
 
     private static AbstractBonus extraRange = new ExtraRange();
@@ -29,7 +29,7 @@ public class BonusPrototypeFactory
     {
         extraRange.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 5, 2, 6, 2, 400));
         extraRange.setImage(extraRange.getAnimation().getImage(0));
-        extraRange.setState(AnimationState.ANIMATING);
+        extraRange.setAnimationState(AnimationState.ANIMATING);
     }
 
     private static AbstractBonus extraLife = new ExtraLife();
@@ -38,7 +38,7 @@ public class BonusPrototypeFactory
     {
         extraLife.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 7, 2, 8, 2, 400));
         extraLife.setImage(extraLife.getAnimation().getImage(0));
-        extraLife.setState(AnimationState.ANIMATING);
+        extraLife.setAnimationState(AnimationState.ANIMATING);
     }
 
     private static AbstractBonus extraSpeed = new ExtraSpeed();
@@ -47,7 +47,7 @@ public class BonusPrototypeFactory
     {
         extraSpeed.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 9, 2, 10, 2, 400));
         extraSpeed.setImage(extraSpeed.getAnimation().getImage(0));
-        extraSpeed.setState(AnimationState.ANIMATING);
+        extraSpeed.setAnimationState(AnimationState.ANIMATING);
     }
 
     private static AbstractBonus death = new Death();
@@ -56,7 +56,7 @@ public class BonusPrototypeFactory
     {
         death.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 11, 2, 12, 2, 400));
         death.setImage(death.getAnimation().getImage(0));
-        death.setState(AnimationState.ANIMATING);
+        death.setAnimationState(AnimationState.ANIMATING);
     }
 
     private static AbstractBonus removeBomb = new RemoveBomb();
@@ -65,7 +65,7 @@ public class BonusPrototypeFactory
     {
         removeBomb.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 13, 2, 14, 2, 400));
         removeBomb.setImage(removeBomb.getAnimation().getImage(0));
-        removeBomb.setState(AnimationState.ANIMATING);
+        removeBomb.setAnimationState(AnimationState.ANIMATING);
     }
 
     private static AbstractBonus removeRange = new RemoveRange();
@@ -74,7 +74,7 @@ public class BonusPrototypeFactory
     {
         removeRange.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 15, 2, 16, 2, 400));
         removeRange.setImage(removeRange.getAnimation().getImage(0));
-        removeRange.setState(AnimationState.ANIMATING);
+        removeRange.setAnimationState(AnimationState.ANIMATING);
     }
 
     private static AbstractBonus removeSpeed = new RemoveSpeed();
@@ -83,7 +83,7 @@ public class BonusPrototypeFactory
     {
         removeSpeed.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 17, 2, 18, 2, 400));
         removeSpeed.setImage(removeSpeed.getAnimation().getImage(0));
-        removeSpeed.setState(AnimationState.ANIMATING);
+        removeSpeed.setAnimationState(AnimationState.ANIMATING);
     }
 
     public static AbstractBonus createDeath()

@@ -16,9 +16,9 @@ public interface AnimatedGraphic extends TiledGraphic
     
     void resetAnimation();
     
-    void setState(AnimationState state);
+    void setAnimationState(AnimationState state);
     
-    AnimationState getState();
+    AnimationState getAnimationState();
     
     boolean isAnimating();
     

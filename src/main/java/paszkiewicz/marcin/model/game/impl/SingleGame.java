@@ -47,12 +47,13 @@ public class SingleGame implements Game
         this.collisionDetector = new CollisionDetectorImpl();
         this.player = SpriteFactory.createPlayer();
 
-        prepareStage();
+        prepareNewStage();
     }
 
-    protected void prepareStage()
+    protected void prepareNewStage()
     {
         this.map = MapFactory.createMap(stageNumber);
+        this.player.setAvailableBombs(player.getAllAvailableBombs());
         this.playerToken = player.createToken();
         this.player.setxTile(2);
         this.player.setyTile(1);
@@ -64,6 +65,7 @@ public class SingleGame implements Game
         return map;
     }
 
+    @Override
     public Player getPlayer()
     {
         return player;
@@ -124,8 +126,12 @@ public class SingleGame implements Game
     public void update(int delta)
     {
         updateAnimations(delta);
-        updatePositions(delta);
+        updatePositions(delta);// moveMonsters(delta);
         collectBonus();
+        // killSpritesIfEnteredExplosion
+        // killPlayerIfBumpedOnMonster
+        // resetGameIfPlayerKilled
+        nextStageIfClear();
     }
 
     protected void updateAnimations(int delta)
@@ -205,7 +211,7 @@ public class SingleGame implements Game
             {
                 if (collisionDetector.isCollision(bomb, flame))
                 {
-                    bomb.setState(AnimationState.ENDED);
+                    bomb.setAnimationState(AnimationState.ENDED);
                     break;
                 }
             }
@@ -339,6 +345,53 @@ public class SingleGame implements Game
                 bonus.modifyFeature(getPlayer());
                 iterator.remove();
             }
+        }
+    }
+
+    protected void nextStageIfClear()
+    {
+        if (map.getMonsters().isEmpty())
+        {
+            highlightWalls();
+            map.getNextStage().setAnimationState(AnimationState.ANIMATING);
+
+            if (collisionDetector.isCollision(player, map.getNextStage()))
+            {
+                nextStage();
+            }
+        }
+    }
+
+    protected void highlightWalls()
+    {
+        for (AnimatedGraphic wall : getMap().getWalls())
+        {
+            for (AnimatedGraphic bonus : getMap().getBonuses())
+            {
+                if (collisionDetector.isCollision(wall, bonus))
+                {
+                    wall.setAnimationState(AnimationState.ANIMATING);
+                }
+            }
+
+            if (collisionDetector.isCollision(wall, getMap().getNextStage()))
+            {
+                wall.setAnimationState(AnimationState.ANIMATING);
+            }
+        }
+
+    }
+
+    protected void nextStage()
+    {
+        if (++stageNumber > NUMBER_OF_STAGES)
+        {
+            gameOver = true;
+            playerWon = true;
+        }
+        else
+        {
+            prepareNewStage();
         }
     }
 }

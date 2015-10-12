@@ -51,7 +51,7 @@ public class AnimatedGraphicElement extends GraphicElement implements AnimatedGr
         animatedGraphicsElement.setAnimationLength(animationLength);
         animatedGraphicsElement.setAnimation(animation.copy());
         animatedGraphicsElement.setImage(image);
-        animatedGraphicsElement.setState(state);
+        animatedGraphicsElement.setAnimationState(state);
 
         return animatedGraphicsElement;
     }
@@ -66,7 +66,7 @@ public class AnimatedGraphicElement extends GraphicElement implements AnimatedGr
             animatingTime += delta;
             if (!animationLooped() && animatingTime >= animationLength)
             {
-                setState(AnimationState.ENDED);
+                setAnimationState(AnimationState.ENDED);
             }
         }
     }
@@ -78,13 +78,13 @@ public class AnimatedGraphicElement extends GraphicElement implements AnimatedGr
     }
 
     @Override
-    public void setState(AnimationState state)
+    public void setAnimationState(AnimationState state)
     {
         this.state = state;
     }
 
     @Override
-    public AnimationState getState()
+    public AnimationState getAnimationState()
     {
         return state;
     }
@@ -92,13 +92,13 @@ public class AnimatedGraphicElement extends GraphicElement implements AnimatedGr
     @Override
     public boolean isAnimating()
     {
-        return getState() == AnimationState.ANIMATING;
+        return getAnimationState() == AnimationState.ANIMATING;
     }
 
     @Override
     public boolean isAnimationEnded()
     {
-        return getState() == AnimationState.ENDED;
+        return getAnimationState() == AnimationState.ENDED;
     }
 
     @Override

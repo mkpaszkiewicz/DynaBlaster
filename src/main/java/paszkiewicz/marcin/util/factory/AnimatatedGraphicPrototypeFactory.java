@@ -19,7 +19,7 @@ public class AnimatatedGraphicPrototypeFactory
     {
         bomb.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 36, 0, 38, 0, 200));
         bomb.setImage(bomb.getAnimation().getImage(0));
-        bomb.setState(AnimationState.ANIMATING);
+        bomb.setAnimationState(AnimationState.ANIMATING);
         bomb.setAnimationLength(2500);
     }
 
@@ -29,16 +29,16 @@ public class AnimatatedGraphicPrototypeFactory
     {
         nextStage.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 1, 2, 2, 2, 200));
         nextStage.setImage(nextStage.getAnimation().getImage(1));
-        nextStage.setState(AnimationState.ENDED);
+        nextStage.setAnimationState(AnimationState.ENDED);
     }
 
     private static AnimatedGraphic wall = new AnimatedGraphicElement();
 
     static
     {
-        wall.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 19, 2, 20, 2, 200));
+        wall.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 19, 2, 20, 2, 250));
         wall.setImage(wall.getAnimation().getImage(0));
-        wall.setState(AnimationState.ENDED);
+        wall.setAnimationState(AnimationState.ENDED);
     }
 
     private static AnimatedGraphic fallingWall = new AnimatedGraphicElement();
@@ -47,7 +47,7 @@ public class AnimatatedGraphicPrototypeFactory
     {
         fallingWall.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 29, 0, 35, 0, 170));
         fallingWall.setImage(fallingWall.getAnimation().getImage(0));
-        fallingWall.setState(AnimationState.ANIMATING);
+        fallingWall.setAnimationState(AnimationState.ANIMATING);
         fallingWall.setAnimationLength(FLAME_ANIMATION_LENGTH);
     }
     
@@ -57,7 +57,7 @@ public class AnimatatedGraphicPrototypeFactory
     {
         centreFlame.setAnimation(SlickFactory.createAnimation(SpriteSheets.basicSpriteSheet, 24, 0, 28, 0, 250));
         centreFlame.setImage(centreFlame.getAnimation().getImage(0));
-        centreFlame.setState(AnimationState.ANIMATING);
+        centreFlame.setAnimationState(AnimationState.ANIMATING);
         centreFlame.setAnimationLength(FLAME_ANIMATION_LENGTH);
         ((Flame) centreFlame).setPriority(2);
     }
@@ -70,7 +70,7 @@ public class AnimatatedGraphicPrototypeFactory
         animation.addFrame(animation.getImage(3), 250);
         horizontalFlame.setAnimation(animation);
         horizontalFlame.setImage(horizontalFlame.getAnimation().getImage(0));
-        horizontalFlame.setState(AnimationState.ANIMATING);
+        horizontalFlame.setAnimationState(AnimationState.ANIMATING);
         horizontalFlame.setAnimationLength(FLAME_ANIMATION_LENGTH);
         ((Flame) horizontalFlame).setPriority(1);
     }
@@ -83,7 +83,7 @@ public class AnimatatedGraphicPrototypeFactory
         animation.addFrame(animation.getImage(3), 250);
         verticalFlame.setAnimation(animation);
         verticalFlame.setImage(verticalFlame.getAnimation().getImage(0));
-        verticalFlame.setState(AnimationState.ANIMATING);
+        verticalFlame.setAnimationState(AnimationState.ANIMATING);
         verticalFlame.setAnimationLength(FLAME_ANIMATION_LENGTH);
         ((Flame) verticalFlame).setPriority(1);
     }
@@ -96,7 +96,7 @@ public class AnimatatedGraphicPrototypeFactory
         animation.addFrame(animation.getImage(3), 250);
         topFlame.setAnimation(animation);
         topFlame.setImage(topFlame.getAnimation().getImage(0));
-        topFlame.setState(AnimationState.ANIMATING);
+        topFlame.setAnimationState(AnimationState.ANIMATING);
         topFlame.setAnimationLength(FLAME_ANIMATION_LENGTH);
         ((Flame) topFlame).setPriority(0);
     }
@@ -109,7 +109,7 @@ public class AnimatatedGraphicPrototypeFactory
         animation.addFrame(animation.getImage(3), 250);
         bottomFlame.setAnimation(animation);
         bottomFlame.setImage(bottomFlame.getAnimation().getImage(0));
-        bottomFlame.setState(AnimationState.ANIMATING);
+        bottomFlame.setAnimationState(AnimationState.ANIMATING);
         bottomFlame.setAnimationLength(FLAME_ANIMATION_LENGTH);
         ((Flame) bottomFlame).setPriority(0);
     }
@@ -122,7 +122,7 @@ public class AnimatatedGraphicPrototypeFactory
         animation.addFrame(animation.getImage(3), 250);
         leftFlame.setAnimation(animation);
         leftFlame.setImage(leftFlame.getAnimation().getImage(0));
-        leftFlame.setState(AnimationState.ANIMATING);
+        leftFlame.setAnimationState(AnimationState.ANIMATING);
         leftFlame.setAnimationLength(FLAME_ANIMATION_LENGTH);
         ((Flame) leftFlame).setPriority(0);
     }
@@ -135,7 +135,7 @@ public class AnimatatedGraphicPrototypeFactory
         animation.addFrame(animation.getImage(3), 250);
         rightFlame.setAnimation(animation);
         rightFlame.setImage(rightFlame.getAnimation().getImage(0));
-        rightFlame.setState(AnimationState.ANIMATING);
+        rightFlame.setAnimationState(AnimationState.ANIMATING);
         rightFlame.setAnimationLength(FLAME_ANIMATION_LENGTH);
         ((Flame) rightFlame).setPriority(0);
     }

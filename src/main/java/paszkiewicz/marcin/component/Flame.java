@@ -17,7 +17,7 @@ public class Flame extends AnimatedGraphicElement
         Flame flame = new Flame();
         flame.setAnimation(animation.copy());
         flame.setImage(image);
-        flame.setState(state);
+        flame.setAnimationState(state);
         flame.setAnimationLength(animationLength);
         flame.setPriority(priority);
 

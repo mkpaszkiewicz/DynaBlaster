@@ -19,7 +19,7 @@ public class Bomb extends AnimatedGraphicElement
             bomb.setAnimationLength(animationLength);
             bomb.setAnimation(animation.copy());
             bomb.setImage(image);
-            bomb.setState(state);
+            bomb.setAnimationState(state);
 
             return bomb;
     }

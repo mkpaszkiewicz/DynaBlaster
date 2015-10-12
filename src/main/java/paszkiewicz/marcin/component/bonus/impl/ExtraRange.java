@@ -18,7 +18,7 @@ public class ExtraRange extends AbstractBonus
         bonus.setAnimationLength(animationLength);
         bonus.setAnimation(animation.copy());
         bonus.setImage(image);
-        bonus.setState(state);
+        bonus.setAnimationState(state);
 
         return bonus;
     }
