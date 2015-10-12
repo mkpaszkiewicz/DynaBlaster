@@ -33,7 +33,7 @@ public class SpriteFactory
     static
     {
         broom.setAnimation(SlickFactory.createAnimation(SpriteSheets.monsterSpriteSheet, 0, 1, 3, 1, 450));
-        broom.setDyingAnimation(SlickFactory.createAnimation(SpriteSheets.monsterSpriteSheet, 4, 1, 7, 1, 270));
+        broom.setDyingAnimation(SlickFactory.createAnimation(SpriteSheets.monsterSpriteSheet, 4, 1, 7, 1, 300));
         broom.setImage(broom.getAnimation().getImage(0));
         broom.setPassingThroughWalls(true);
         broom.setSpeed(0.0021f);
@@ -44,7 +44,7 @@ public class SpriteFactory
     static
     {
         ghost.setAnimation(SlickFactory.createAnimation(SpriteSheets.monsterSpriteSheet, 9, 0, 11, 0, 700));
-        ghost.setDyingAnimation(SlickFactory.createAnimation(SpriteSheets.monsterSpriteSheet, 12, 0, 13, 0, 550));
+        ghost.setDyingAnimation(SlickFactory.createAnimation(SpriteSheets.monsterSpriteSheet, 12, 0, 13, 0, 600));
         ghost.setImage(ghost.getAnimation().getImage(0));
         ghost.setPassingThroughWalls(true);
         ghost.setSpeed(0.0016f);
@@ -55,7 +55,7 @@ public class SpriteFactory
     static
     {
         pump.setAnimation(SlickFactory.createAnimation(SpriteSheets.monsterSpriteSheet, 0, 2, 3, 2, 600));
-        pump.setDyingAnimation(SlickFactory.createAnimation(SpriteSheets.monsterSpriteSheet, 4, 2, 7, 2, 270));
+        pump.setDyingAnimation(SlickFactory.createAnimation(SpriteSheets.monsterSpriteSheet, 4, 2, 7, 2, 300));
         pump.setImage(pump.getAnimation().getImage(0));
         pump.setSpeed(0.0016f);
     }
@@ -65,7 +65,7 @@ public class SpriteFactory
     static
     {
         stain.setAnimation(SlickFactory.createAnimation(SpriteSheets.monsterSpriteSheet, 0, 3, 2, 3, 700));
-        stain.setDyingAnimation(SlickFactory.createAnimation(SpriteSheets.monsterSpriteSheet, 3, 3, 6, 3, 270));
+        stain.setDyingAnimation(SlickFactory.createAnimation(SpriteSheets.monsterSpriteSheet, 3, 3, 6, 3, 300));
         stain.setImage(stain.getAnimation().getImage(0));
         stain.setSpeed(0.00186f);
     }

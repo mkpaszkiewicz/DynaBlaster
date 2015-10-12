@@ -2,6 +2,7 @@ package paszkiewicz.marcin.controller.impl;
 
 import org.newdawn.slick.Input;
 
+import paszkiewicz.marcin.component.menu.MenuFieldName;
 import paszkiewicz.marcin.component.sprite.Player;
 import paszkiewicz.marcin.core.GameCore;
 import paszkiewicz.marcin.model.Model;
@@ -19,6 +20,10 @@ public class SingleGameController extends AbstractController
     {
         if (keyCode == Input.KEY_ESCAPE)
         {
+            if (model.getGame().isGameOver())
+            {
+                model.disableMenuField(MenuFieldName.RESUME);
+            }
             gameCore.enterState(GameState.MAINMENU);
         }
         else if (keyCode == Input.KEY_P)

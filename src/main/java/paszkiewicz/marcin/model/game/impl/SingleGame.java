@@ -3,6 +3,7 @@ package paszkiewicz.marcin.model.game.impl;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import org.newdawn.slick.Graphics;
 
@@ -25,6 +26,7 @@ import paszkiewicz.marcin.util.factory.SpriteFactory;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic;
 import paszkiewicz.marcin.view.graphic.AnimatedGraphic.AnimationState;
 import paszkiewicz.marcin.view.graphic.Drawable;
+import paszkiewicz.marcin.view.graphic.DynamicGraphic.Movement;
 
 public class SingleGame implements Game
 {
@@ -128,13 +130,14 @@ public class SingleGame implements Game
     @Override
     public void update(int delta)
     {
-        updateAnimations(delta);
-        updatePositions(delta);// moveMonsters(delta);
         collectBonus(getPlayer());
         killSpritesIfEnteredExplosion();
         killPlayerIfBumpedOnMonster(getPlayer());
         resetGameIfPlayerIsKilled();
         nextStageIfClear();
+        moveRandomly(getMap().getMonsters());
+        updateAnimations(delta);
+        updatePositions(delta);// moveMonsters(delta);
     }
 
     protected void updateAnimations(int delta)
@@ -483,6 +486,72 @@ public class SingleGame implements Game
         else
         {
             prepareNewStage();
+        }
+    }
+
+    public void moveRandomly(List<Sprite> sprites)
+    {
+        for (Sprite sprite : sprites)
+        {
+            moveRandomly(sprite);
+        }
+    }
+
+    protected void moveRandomly(Sprite sprite)
+    {
+        Random random = new Random();
+        if (!sprite.isMoving())
+        {
+            switch (random.nextInt(4))
+            {
+                case 0:
+                {
+                    sprite.move(Movement.UP);
+                    break;
+                }
+                case 1:
+                {
+                    sprite.move(Movement.DOWN);
+                    break;
+                }
+                case 2:
+                {
+                    sprite.move(Movement.LEFT);
+                    break;
+                }
+                case 3:
+                {
+                    sprite.move(Movement.RIGHT);
+                    break;
+                }
+            }
+            return;
+        }
+
+        if (random.nextInt(6) == 0 && Math.abs(sprite.getxShift()) < 0.07f && Math.abs(sprite.getyShift()) < 0.07f)
+        {
+            if (sprite.isMovingDown() || sprite.isMovingUp())
+            {
+                if (random.nextInt(2) == 1)
+                {
+                    sprite.move(Movement.LEFT);
+                }
+                else
+                {
+                    sprite.move(Movement.RIGHT);
+                }
+            }
+            else
+            {
+                if (random.nextInt(2) == 1)
+                {
+                    sprite.move(Movement.UP);
+                }
+                else
+                {
+                    sprite.move(Movement.DOWN);
+                }
+            }
         }
     }
 }
