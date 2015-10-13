@@ -1,12 +1,12 @@
 # Compiled code
 *.class
-target/*
+*/target/*
 
 # Temporary files
 *~
 
 # Eclipse settings
-.settings/*
+*/.settings/*
 
 # Package Files #
 *.jar
