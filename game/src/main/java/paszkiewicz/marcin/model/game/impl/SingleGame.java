@@ -50,7 +50,6 @@ public class SingleGame implements Game
     {
         this.collisionDetector = new CollisionDetectorImpl();
         this.player = SpriteFactory.createPlayer();
-
         prepareNewStage();
     }
 
@@ -82,9 +81,21 @@ public class SingleGame implements Game
     }
 
     @Override
+    public void setGameOver(boolean gameOver)
+    {
+        this.gameOver = gameOver;
+    }
+
+    @Override
     public boolean hasPlayerWon()
     {
         return playerWon;
+    }
+
+    @Override
+    public void setPlayerWon(boolean playerWon)
+    {
+        this.playerWon = playerWon;
     }
 
     @Override
@@ -137,7 +148,7 @@ public class SingleGame implements Game
         nextStageIfClear();
         moveRandomly(getMap().getMonsters());
         updateAnimations(delta);
-        updatePositions(delta);// moveMonsters(delta);
+        updatePositions(delta);
     }
 
     protected void updateAnimations(int delta)

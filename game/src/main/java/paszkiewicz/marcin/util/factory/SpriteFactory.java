@@ -17,7 +17,19 @@ public class SpriteFactory
         player.setDyingAnimation(SlickFactory.createAnimation(SpriteSheets.playerSpriteSheet, 0, 1, 6, 1, 200));
         player.setImage(player.getMovingDownAnimation().getImage(0));
     }
+    
+    private static Player opponent = new Player();
 
+    static
+    {
+        opponent.setMovingLeftAnimation(SlickFactory.createAnimation(SpriteSheets.playerSpriteSheet, 6, 2, 8, 2, 110));
+        opponent.setMovingRightAnimation(SlickFactory.createAnimation(SpriteSheets.playerSpriteSheet, 3, 2, 5, 2, 110));
+        opponent.setMovingUpAnimation(SlickFactory.createAnimation(SpriteSheets.playerSpriteSheet, 9, 2, 11, 2, 110));
+        opponent.setMovingDownAnimation(SlickFactory.createAnimation(SpriteSheets.playerSpriteSheet, 0, 2, 2, 2, 110));
+        opponent.setDyingAnimation(SlickFactory.createAnimation(SpriteSheets.playerSpriteSheet, 0, 3, 6, 3, 200));
+        opponent.setImage(opponent.getMovingDownAnimation().getImage(0));
+    }
+    
     private static Sprite balloon = new Sprite();
 
     static
@@ -75,6 +87,11 @@ public class SpriteFactory
         return player.clone();
     }
 
+    public static Player createOpponent()
+    {
+        return opponent.clone();
+    }
+    
     public static Sprite createBalloon()
     {
         return balloon.clone();

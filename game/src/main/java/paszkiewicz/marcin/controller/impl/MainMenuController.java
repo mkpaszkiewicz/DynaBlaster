@@ -6,6 +6,7 @@ import paszkiewicz.marcin.component.menu.Menu;
 import paszkiewicz.marcin.component.menu.MenuFieldName;
 import paszkiewicz.marcin.core.GameCore;
 import paszkiewicz.marcin.model.Model;
+import paszkiewicz.marcin.model.game.impl.MultiplayerGame;
 import paszkiewicz.marcin.model.game.impl.SingleGame;
 import paszkiewicz.marcin.model.game.state.GameState;
 
@@ -61,8 +62,7 @@ public class MainMenuController extends AbstractController
                 }
                 case MenuFieldName.MULTIPLAYER:
                 {
-                    model.enableMenuField(MenuFieldName.RESUME);
-                    //model.startNewGame(new MultiplayerGame());
+                    model.startNewGame(new MultiplayerGame());
                     gameCore.enterState(GameState.MULTIPLAYER);
                     break;
                 }

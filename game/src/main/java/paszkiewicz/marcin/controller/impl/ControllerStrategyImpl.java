@@ -15,6 +15,7 @@ public class ControllerStrategyImpl implements ControllerStrategy
     public void set(Controller controller)
     {
         this.controller = controller;
+        this.controller.init();
     }
 
     public void serveKeyPressed(int keyCode)

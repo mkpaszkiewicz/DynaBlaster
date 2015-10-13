@@ -43,7 +43,7 @@ public class Client implements Runnable
 		{
 			while(!socket.isClosed())
 			{	
-				Event event;
+			    Event event;
 				event = (Event) input.readObject();
 				opponent.send(event);
 				if(event.keyCode == KEY_ESCAPE)

@@ -13,8 +13,12 @@ public interface Game extends Drawable
     Player getPlayer();
 
     boolean isGameOver();
-
+    
+    void setGameOver(boolean gameOver);
+    
     boolean hasPlayerWon();
-
+    
+    void setPlayerWon(boolean playerWon);
+    
     void plantBomb(Player player);
 }
