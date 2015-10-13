@@ -44,10 +44,9 @@ public class GameCoreImpl implements GameCore
         int screenWidth = Display.getDisplayMode().getWidth();
         int screenHeight = Display.getDisplayMode().getHeight();
 
-        //application = new ApplicationContainer(this.gameModel, screenWidth, screenHeight, true);
-        application = new ApplicationContainer(this.gameModel, 600, 600, false);
+        application = new ApplicationContainer(this.gameModel, screenWidth, screenHeight, true);
         application.setShowFPS(false);
-        //application.setMouseGrabbed(true);
+        application.setMouseGrabbed(true);
         application.setAlwaysRender(true);
     }
 
