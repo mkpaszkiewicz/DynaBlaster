@@ -1,6 +1,6 @@
 package paszkiewicz.marcin.core.impl;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 import org.lwjgl.opengl.Display;
@@ -70,10 +70,10 @@ public class GameCoreImpl implements GameCore
         controllerStrategy.set(stateToControllerMap.get(gameState));
         gameModel.enterState(gameState.ordinal());
     }
-
+    
     private void initStateToControllerMap()
     {
-        this.stateToControllerMap = new HashMap<GameState, Controller>();
+        this.stateToControllerMap = new EnumMap<GameState, Controller>(GameState.class);
         this.stateToControllerMap.put(GameState.MAINMENU, new MainMenuController(this, gameModel));
         this.stateToControllerMap.put(GameState.SINGLEGAME, new SingleGameController(this, gameModel));
         this.stateToControllerMap.put(GameState.MULTIPLAYER, new MultiplayerController(this, gameModel));
